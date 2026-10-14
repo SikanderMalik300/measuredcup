@@ -38,8 +38,11 @@ export default function Home() {
     <div>
       {/* Hero */}
       <section className="w-full">
-        <div className="mx-auto grid max-w-container grid-cols-1 md:grid-cols-[55%_45%]">
-          <div style={{ background: 'var(--band-1)' }} className="px-4 py-12 md:px-10 md:py-16">
+        <div className="mx-auto grid max-w-container grid-cols-1 items-stretch md:grid-cols-[55%_45%]">
+          <div
+            style={{ background: 'var(--band-1)' }}
+            className="flex flex-col justify-center px-4 py-12 md:min-h-[440px] md:px-10 md:py-16"
+          >
             <h1>{page.h1}</h1>
             <p className="prose-measure mt-4 text-[18px] text-ink">
               A cup of flour and a cup of sugar don&apos;t weigh the same. MeasuredCup converts grams,
@@ -50,8 +53,10 @@ export default function Home() {
               <SiteSearch items={searchItems} />
             </div>
           </div>
-          <figure>
-            <div className="h-[220px] w-full md:h-[440px]">
+          <figure className="relative">
+            {/* Mobile: 4:3 strip below the color block. Desktop: fills the right 45% edge to edge at
+                the full hero height. */}
+            <div className="h-[220px] w-full md:absolute md:inset-0 md:h-full">
               <Picture
                 photo={hero}
                 variant="hero"
@@ -61,7 +66,7 @@ export default function Home() {
                 className="h-full w-full"
               />
             </div>
-            <figcaption className="px-4 py-1 text-[12px] text-muted md:px-2">
+            <figcaption className="px-4 py-1 text-[12px] text-muted md:absolute md:inset-x-0 md:bottom-0 md:bg-gradient-to-t md:from-black/55 md:to-transparent md:px-4 md:py-2 md:text-white">
               Photo: {hero.photographer} / {hero.source}
             </figcaption>
           </figure>

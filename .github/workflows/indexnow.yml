@@ -1,0 +1,40 @@
+name: IndexNow
+
+# After a push to main, wait for the Cloudflare Pages deploy, then tell IndexNow
+# (Bing and partner engines) about every canonical URL. Never fails on a non-200.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Wait for the Cloudflare deploy
+        run: sleep 180
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (generates out/sitemap.xml)
+        run: npm run build
+
+      - name: Ping IndexNow
+        run: node scripts/indexnow.mjs

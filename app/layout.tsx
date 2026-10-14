@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { JsonLd } from '@/components/JsonLd';
+import { Analytics } from '@/components/Analytics';
 import { organizationSchema, websiteSchema } from '@/lib/seo';
 import { SITE_NAME, SITE_URL, SITE_TAGLINE } from '@/lib/data/site';
 
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
