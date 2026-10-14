@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Figtree } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -7,9 +7,12 @@ import { JsonLd } from '@/components/JsonLd';
 import { organizationSchema, websiteSchema } from '@/lib/seo';
 import { SITE_NAME, SITE_URL, SITE_TAGLINE } from '@/lib/data/site';
 
-const figtree = Figtree({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+const figtree = localFont({
+  src: [
+    { path: './fonts/figtree-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/figtree-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/figtree-latin-600-normal.woff2', weight: '600', style: 'normal' },
+  ],
   display: 'swap',
   variable: '--font-figtree',
 });
