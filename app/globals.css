@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens (measuredcup-design.md section 3). Exact hex values. */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #1c1a17;
+  --muted: #5a544d;
+  --line: #e6e1da;
+  --brand: #9a4a2e;
+  --brand-hover: #7e3b24;
+  --band-1: #f4eee4; /* oat */
+  --band-2: #edf1e8; /* sage */
+  --band-3: #f8eee7; /* blush */
+  --paper: #f7f5f1;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-figtree), system-ui, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    letter-spacing: normal;
+  }
+
+  h1 {
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 40px;
+    }
+    h2 {
+      font-size: 28px;
+      line-height: 1.2;
+    }
+  }
+
+  /* Numbers line up in results and tables. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Visible focus ring on every interactive element (design section 10). */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible,
+  th[tabindex]:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Readable prose width. */
+  .prose-measure {
+    max-width: 70ch;
+  }
+}
+
+@layer components {
+  .link {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .link:hover {
+    color: var(--brand-hover);
+  }
+
+  .btn-primary {
+    background: var(--brand);
+    color: #ffffff;
+    border-radius: 999px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    transition: background 180ms ease-out;
+  }
+  .btn-primary:hover {
+    background: var(--brand-hover);
+  }
+
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 16px;
+    transition: border-color 180ms ease-out;
+  }
+  .btn-secondary:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+
+  .pill-input {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    height: 48px;
+    background: var(--surface);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--brand);
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 50;
+    border-radius: 0 0 8px 0;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+}
+
+/* Motion: only hover/focus transitions; respect reduced motion (design section 6). */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+  .tile-photo {
+    transform: none !important;
+  }
+}

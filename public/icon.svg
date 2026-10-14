@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="MeasuredCup" xmlns:c2pa="http://c2pa.org/manifest">
+  <rect width="48" height="48" rx="10" fill="#9A4A2E"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2) scale(0.85)">
+    <path d="M7 11 H33 L30 40 H12 Z"/>
+    <path d="M7 11 L4.5 8.5"/>
+    <path d="M33 14 H39 Q42 14 41.6 17 L40.4 25 Q40 28 37 28 H31.6"/>
+    <path d="M14.5 19 H21"/>
+    <path d="M15 25.5 H21"/>
+    <path d="M15.5 32 H21"/>
+  </g>
+</svg>
