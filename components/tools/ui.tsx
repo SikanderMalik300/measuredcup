@@ -40,10 +40,12 @@ export function IngredientSelect({
   id,
   value,
   onChange,
+  extraOption,
 }: {
   id: string;
   value: string;
   onChange: (id: string) => void;
+  extraOption?: { value: string; label: string };
 }) {
   return (
     <select
@@ -52,6 +54,7 @@ export function IngredientSelect({
       onChange={(e) => onChange(e.target.value)}
       className="h-12 w-full rounded-pill border border-line bg-surface px-4 text-[16px] text-ink"
     >
+      {extraOption && <option value={extraOption.value}>{extraOption.label}</option>}
       {INGREDIENT_GROUPS.map((group) => (
         <optgroup key={group} label={group}>
           {INGREDIENTS.filter((i) => i.group === group).map((i) => (

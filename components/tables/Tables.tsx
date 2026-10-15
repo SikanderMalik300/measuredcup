@@ -2,6 +2,10 @@ import {
   gramAmountsInCups,
   cupFractionsInGrams,
   spoonGramsRows,
+  tablespoonsToCupsRows,
+  spoonGramsByIngredient,
+  eighthCupEquivalents,
+  SPOON_GRAM_COLS,
   BUTTER_ROWS,
   HALF_THIRD_ROWS,
   GRAM_AMOUNT_COLS,
@@ -135,6 +139,85 @@ export function SpoonGramsTable() {
               <th scope="row" className={td + ' font-normal'}>{r.name}</th>
               <td className={tdNum}>{r.tbsp} g</td>
               <td className={tdNum}>{r.tsp} g</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function TablespoonsToCupsChart() {
+  const rows = tablespoonsToCupsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Tablespoons to cups chart (US)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={thNum}>Tablespoons</th>
+            <th scope="col" className={thNum}>Cups (decimal)</th>
+            <th scope="col" className={th}>Measure with</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>Fluid ounces</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.tbsp} className={rowLine}>
+              <th scope="row" className={tdNum + ' font-normal'}>{r.tbsp}</th>
+              <td className={tdNum}>{r.cups}</td>
+              <td className={td}>{r.measureWith}</td>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.flOz}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function SpoonGramsByIngredientTable() {
+  const rows = spoonGramsByIngredient();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Common spoon amounts in grams (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Tablespoons</th>
+            {SPOON_GRAM_COLS.map((id) => (
+              <th scope="col" key={id} className={thNum}>{colName(id)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.tbsp} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.tbsp} tbsp</th>
+              {r.cells.map((c, i) => (
+                <td key={i} className={tdNum}>{c} g</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function EighthCupEquivalentsTable() {
+  const rows = eighthCupEquivalents();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">1/8 cup equivalents (US)</caption>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.label} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.label}</th>
+              <td className={tdNum}>{r.value}</td>
             </tr>
           ))}
         </tbody>

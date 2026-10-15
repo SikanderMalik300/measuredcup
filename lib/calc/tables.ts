@@ -1,7 +1,9 @@
 import { gramsToCups, cupsToGrams, spoonsToGrams } from './convert';
-import { formatGrams, roundTo } from './round';
+import { formatGrams, gramsCell, roundTo, trimDecimal } from './round';
 import { formatFraction } from './fraction';
-import { INGREDIENTS, getIngredient } from '../data/ingredients';
+import { fewestScoops } from './kitchen';
+import { INGREDIENTS, getIngredient, gramsPerCup } from '../data/ingredients';
+import { ML_PER_TSP } from '../data/constants';
 
 /** Format a cup amount for a reference table: kitchen fraction to the nearest 1/8 cup, or
  *  tablespoons when under 1/4 cup (build spec A8.1 Table 2). */
@@ -72,6 +74,74 @@ export function dataPageRows() {
       portion: ing.usdaPortionText,
     };
   });
+}
+
+// ---- Tablespoons to cups (page /tablespoons-to-cups/) ----
+
+/** mL for a teaspoon amount, one decimal. */
+export function mlFromTsp(totalTsp: number): string {
+  return roundTo(totalTsp * ML_PER_TSP, 1).toFixed(1);
+}
+
+/** Fluid ounces for a teaspoon amount (1 tbsp = 1/2 fl oz exactly), trimmed. */
+export function flOzFromTsp(totalTsp: number): string {
+  return trimDecimal(totalTsp / 6, 2);
+}
+
+export const TBSP_TO_CUPS_ROWS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 20, 24, 32];
+
+export function tablespoonsToCupsRows() {
+  return TBSP_TO_CUPS_ROWS.map((tbsp) => {
+    const totalTsp = tbsp * 3;
+    return {
+      tbsp,
+      cups: trimDecimal(totalTsp / 48, 4),
+      measureWith: fewestScoops(totalTsp),
+      ml: mlFromTsp(totalTsp),
+      flOz: flOzFromTsp(totalTsp),
+    };
+  });
+}
+
+// Common spoon amounts in grams (USDA), page 1 table 2.
+export const SPOON_GRAM_ROWS = [2, 4, 6, 8, 10, 12];
+export const SPOON_GRAM_COLS = ['ap-flour', 'sugar', 'butter', 'vegetable-oil'];
+
+export function spoonGramsByIngredient() {
+  return SPOON_GRAM_ROWS.map((tbsp) => ({
+    tbsp,
+    cells: SPOON_GRAM_COLS.map((id) => gramsCell(spoonsToGrams(tbsp, 'tablespoons', id, 'usda'))),
+  }));
+}
+
+// ---- 1/8 cup (page /tablespoons-in-1-8-cup/) ----
+
+export function eighthCupEquivalents(): { label: string; value: string }[] {
+  const tsp6 = 6; // 1/8 cup in tsp
+  return [
+    { label: 'Tablespoons', value: '2' },
+    { label: 'Teaspoons', value: '6' },
+    { label: 'Fluid ounces', value: '1' },
+    { label: 'Milliliters', value: mlFromTsp(tsp6) },
+    { label: 'Cups (decimal)', value: trimDecimal(1 / 8, 4) },
+    { label: 'Half of 1/8 cup', value: fewestScoops(3) },
+    { label: 'Double 1/8 cup', value: fewestScoops(12) },
+  ];
+}
+
+export function eighthCupByIngredient() {
+  return INGREDIENTS.map((ing) => ({
+    id: ing.id,
+    name: ing.name,
+    usda: gramsCell(ing.usdaGramsPerCup / 8),
+    ka: ing.kaGramsPerCup == null ? '-' : gramsCell(ing.kaGramsPerCup / 8),
+    perTbsp: gramsCell(ing.usdaGramsPerCup / 16),
+  }));
+}
+
+/** Grams in 1/8 cup for an ingredient and source. */
+export function eighthCupGrams(id: string, source: 'usda' | 'kingArthur'): string {
+  return gramsCell(gramsPerCup(getIngredient(id), source) / 8);
 }
 
 // ---- Butter amounts (build spec A8.4). Static copy values. ----

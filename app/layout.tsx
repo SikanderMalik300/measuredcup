@@ -14,7 +14,7 @@ const figtree = localFont({
     { path: './fonts/figtree-latin-500-normal.woff2', weight: '500', style: 'normal' },
     { path: './fonts/figtree-latin-600-normal.woff2', weight: '600', style: 'normal' },
   ],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-figtree',
 });
 
