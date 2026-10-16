@@ -114,34 +114,80 @@ export function spoonGramsByIngredient() {
   }));
 }
 
-// ---- 1/8 cup (page /tablespoons-in-1-8-cup/) ----
+// ---- Cup fractions (pages /tablespoons-in-1-8-cup/ and /tablespoons-in-1-4-cup/) ----
 
-export function eighthCupEquivalents(): { label: string; value: string }[] {
-  const tsp6 = 6; // 1/8 cup in tsp
-  return [
-    { label: 'Tablespoons', value: '2' },
-    { label: 'Teaspoons', value: '6' },
-    { label: 'Fluid ounces', value: '1' },
-    { label: 'Milliliters', value: mlFromTsp(tsp6) },
-    { label: 'Cups (decimal)', value: trimDecimal(1 / 8, 4) },
-    { label: 'Half of 1/8 cup', value: fewestScoops(3) },
-    { label: 'Double 1/8 cup', value: fewestScoops(12) },
-  ];
+/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8 and 1/4. */
+export function cupFractionLabel(fraction: number): string {
+  if (Math.abs(fraction - 1 / 8) < 1e-9) return '1/8';
+  if (Math.abs(fraction - 1 / 4) < 1e-9) return '1/4';
+  return trimDecimal(fraction, 4);
 }
 
-export function eighthCupByIngredient() {
+export function cupFractionEquivalents(fraction: number): { label: string; value: string }[] {
+  const tbsp = 16 * fraction;
+  const tsp = 48 * fraction;
+  const flOz = 8 * fraction;
+  const label = cupFractionLabel(fraction);
+  const rows: { label: string; value: string }[] = [
+    { label: 'Tablespoons', value: String(tbsp) },
+    { label: 'Teaspoons', value: String(tsp) },
+    { label: 'Fluid ounces', value: String(flOz) },
+    { label: 'Milliliters', value: mlFromTsp(tsp) },
+    { label: 'Cups (decimal)', value: trimDecimal(fraction, 4) },
+  ];
+  if (Math.abs(fraction - 1 / 8) < 1e-9) {
+    rows.push({ label: `Half of ${label} cup`, value: fewestScoops(tsp / 2) }); // 1 tbsp
+    rows.push({ label: `Double ${label} cup`, value: fewestScoops(tsp * 2) }); // 1/4 cup
+  } else {
+    // 1/4 cup
+    rows.push({ label: `Half of ${label} cup`, value: '2 tbsp (1/8 cup)' });
+    rows.push({ label: `Double ${label} cup`, value: fewestScoops(tsp * 2) }); // 1/2 cup
+    rows.push({ label: 'Butter', value: '1/2 stick' });
+  }
+  return rows;
+}
+
+export function cupFractionByIngredient(fraction: number) {
   return INGREDIENTS.map((ing) => ({
     id: ing.id,
     name: ing.name,
-    usda: gramsCell(ing.usdaGramsPerCup / 8),
-    ka: ing.kaGramsPerCup == null ? '-' : gramsCell(ing.kaGramsPerCup / 8),
+    usda: gramsCell(ing.usdaGramsPerCup * fraction),
+    ka: ing.kaGramsPerCup == null ? '-' : gramsCell(ing.kaGramsPerCup * fraction),
     perTbsp: gramsCell(ing.usdaGramsPerCup / 16),
   }));
 }
 
-/** Grams in 1/8 cup for an ingredient and source. */
+/** Grams in a cup fraction for an ingredient and source. */
+export function cupFractionGrams(
+  id: string,
+  source: 'usda' | 'kingArthur',
+  fraction: number,
+): string {
+  return gramsCell(gramsPerCup(getIngredient(id), source) * fraction);
+}
+
+// Backwards-compatible 1/8 cup aliases (existing tests and the live page use these).
+export const eighthCupEquivalents = () => cupFractionEquivalents(1 / 8);
+export const eighthCupByIngredient = () => cupFractionByIngredient(1 / 8);
 export function eighthCupGrams(id: string, source: 'usda' | 'kingArthur'): string {
-  return gramsCell(gramsPerCup(getIngredient(id), source) / 8);
+  return cupFractionGrams(id, source, 1 / 8);
+}
+
+// ---- Grams to tablespoons (page /grams-to-tablespoons/) ----
+
+export const G2TBSP_ROWS = [5, 10, 15, 20, 25, 30, 50, 100];
+export const G2TBSP_COLS = ['ap-flour', 'sugar', 'butter', 'honey', 'cocoa'];
+
+/** Tablespoons for grams of an ingredient: grams ÷ (grams per cup ÷ 16). */
+export function gramsToTbsp(grams: number, id: string, source: 'usda' | 'kingArthur'): number {
+  return grams / (gramsPerCup(getIngredient(id), source) / 16);
+}
+
+export function gramsToTablespoonsRows() {
+  return G2TBSP_ROWS.map((grams) => ({
+    grams,
+    cells: G2TBSP_COLS.map((id) => trimDecimal(gramsToTbsp(grams, id, 'usda'), 2)),
+  }));
 }
 
 // ---- Butter amounts (build spec A8.4). Static copy values. ----

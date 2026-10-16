@@ -64,7 +64,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Any weight to US cups, for 23 ingredients',
-    related: ['/cups-to-grams/', '/tablespoons-to-grams/', '/butter-converter/', '/data/ingredient-weights/'],
+    related: ['/cups-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-grams/', '/data/ingredient-weights/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'scale-flour',
@@ -146,7 +146,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Spoons to grams for 23 ingredients',
-    related: ['/tablespoons-to-cups/', '/cups-to-grams/', '/grams-to-cups/', '/butter-converter/'],
+    related: ['/grams-to-tablespoons/', '/tablespoons-to-cups/', '/cups-to-grams/', '/grams-to-cups/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'nested-spoons',
@@ -295,6 +295,88 @@ export const PAGES: PageEntry[] = [
   },
 
   {
+    slug: '/tablespoons-in-1-4-cup/',
+    title: 'How Many Tablespoons in 1/4 Cup? 4, Plus Grams | MeasuredCup',
+    metaDescription:
+      '1/4 cup is 4 tablespoons, 12 teaspoons or 2 fluid ounces (59.1 mL). See what 1/4 cup of flour, sugar, butter, oil and 19 more ingredients weighs in grams.',
+    h1: 'How Many Tablespoons in 1/4 Cup?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '4 tbsp, plus grams for 23 ingredients',
+    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-to-cups/', '/tablespoons-to-grams/', '/butter-converter/'],
+    lastUpdated: '2026-10-16',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'butter-flour-eggs',
+    faq: [
+      {
+        q: 'How many tablespoons are in 1/4 cup?',
+        a: "4. A US cup holds 16 tablespoons, and a quarter of 16 is 4. That's the same for dry and liquid ingredients, because both are volume measures.",
+      },
+      {
+        q: 'How many teaspoons are in 1/4 cup?',
+        a: '12 teaspoons. There are 3 teaspoons in a tablespoon, and 1/4 cup is 4 tablespoons.',
+      },
+      {
+        q: 'How many grams is 1/4 cup of flour?',
+        a: "About 31.3 g of all-purpose flour using USDA's 125 g per cup, or 30 g using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How many grams is 1/4 cup of sugar?',
+        a: "50 g of granulated sugar using USDA's 200 g per cup. Packed brown sugar is about 55 g, and powdered sugar about 30 g.",
+      },
+      {
+        q: 'How much butter is 1/4 cup?',
+        a: "4 tablespoons, which is half a US stick. By weight that's about 57 g.",
+      },
+      {
+        q: 'Is 1/4 cup the same as 2 ounces?',
+        a: 'For volume, yes: 1/4 cup is 2 US fluid ounces. By weight it depends on the ingredient. 1/4 cup of flour is about 1.1 oz (31.3 g), while 1/4 cup of honey is about 3 oz (84.8 g).',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/grams-to-tablespoons/',
+    title: 'Grams to Tablespoons Converter by Ingredient | MeasuredCup',
+    metaDescription:
+      'Convert grams to tablespoons and teaspoons for 23 ingredients. 10 g of flour is 1.3 tbsp, sugar 0.8 tbsp and butter 0.7 tbsp, using USDA and King Arthur data.',
+    h1: 'Grams to Tablespoons Converter',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: 'Grams to spoons for 23 ingredients',
+    related: ['/tablespoons-to-grams/', '/grams-to-cups/', '/tablespoons-to-cups/', '/butter-converter/'],
+    lastUpdated: '2026-10-16',
+    sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
+    photoId: 'scale-flour',
+    faq: [
+      {
+        q: 'How many grams is 1 tablespoon?',
+        a: 'It depends on the ingredient. 1 tablespoon of water is 14.8 g, all-purpose flour about 7.8 g, sugar 12.5 g, butter 14.2 g and honey 21.2 g (USDA FoodData Central).',
+      },
+      {
+        q: 'Is 1 tablespoon 15 grams?',
+        a: 'Only for water and similar liquids, which weigh about 14.8 g per tablespoon. Flour is about half that, and honey is about 21 g.',
+      },
+      {
+        q: 'How many tablespoons is 10 grams of sugar?',
+        a: "0.8 tablespoons, which is 2.4 teaspoons, using USDA's 12.5 g per tablespoon.",
+      },
+      {
+        q: 'How many tablespoons is 100 grams of butter?',
+        a: 'About 7 tablespoons (7.05), one less than a US stick of 8 tablespoons.',
+      },
+      {
+        q: 'How many tablespoons is 20 grams of flour?',
+        a: "About 2 1/2 tablespoons: 2.56 using USDA's 125 g per cup, or 2.67 using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How do I convert grams to teaspoons?',
+        a: "Divide grams by the grams in one teaspoon, which is the grams per cup ÷ 48. For sugar that's 4.2 g per teaspoon, so 10 g is 2.4 teaspoons.",
+      },
+    ],
+    inSitemap: true,
+  },
+  {
     slug: '/tablespoons-to-cups/',
     title: 'Tablespoons to Cups Converter (Chart + Fractions) | MeasuredCup',
     metaDescription:
@@ -303,8 +385,8 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '16 tbsp = 1 cup, with a full chart',
-    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-to-grams/', '/half-a-measurement/', '/cups-to-grams/'],
-    lastUpdated: '2026-10-15',
+    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-4-cup/', '/tablespoons-to-grams/', '/cups-to-grams/'],
+    lastUpdated: '2026-10-16',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
     photoId: 'copper-cups-paper',
     faq: [
@@ -337,15 +419,15 @@ export const PAGES: PageEntry[] = [
   },
   {
     slug: '/tablespoons-in-1-8-cup/',
-    title: 'How Many Tablespoons in 1/8 Cup? (2 tbsp, Plus Grams) | MeasuredCup',
+    title: 'How Many Tablespoons in 1/8 Cup? 2, Plus Grams | MeasuredCup',
     metaDescription:
       '1/8 cup is 2 tablespoons, 6 teaspoons or 1 fluid ounce (29.6 mL). See what 1/8 cup of flour, sugar, butter, oil and 19 more ingredients weighs in grams.',
     h1: 'How Many Tablespoons in 1/8 Cup?',
     kind: 'tool',
     category: 'converters',
     tileLine: '2 tbsp, plus grams for 23 ingredients',
-    related: ['/tablespoons-to-cups/', '/tablespoons-to-grams/', '/half-a-measurement/', '/butter-converter/'],
-    lastUpdated: '2026-10-15',
+    related: ['/tablespoons-to-cups/', '/tablespoons-in-1-4-cup/', '/tablespoons-to-grams/', '/butter-converter/'],
+    lastUpdated: '2026-10-16',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
     photoId: 'four-cups',
     faq: [

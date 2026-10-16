@@ -4,8 +4,10 @@ import {
   spoonGramsRows,
   tablespoonsToCupsRows,
   spoonGramsByIngredient,
-  eighthCupEquivalents,
+  cupFractionEquivalents,
+  gramsToTablespoonsRows,
   SPOON_GRAM_COLS,
+  G2TBSP_COLS,
   BUTTER_ROWS,
   HALF_THIRD_ROWS,
   GRAM_AMOUNT_COLS,
@@ -207,17 +209,47 @@ export function SpoonGramsByIngredientTable() {
   );
 }
 
-export function EighthCupEquivalentsTable() {
-  const rows = eighthCupEquivalents();
+export function CupFractionEquivalentsTable({ fraction }: { fraction: number }) {
+  const rows = cupFractionEquivalents(fraction);
+  const label = fraction === 1 / 4 ? '1/4' : '1/8';
   return (
     <TableWrap>
       <table className="w-full border-collapse">
-        <caption className="pb-2 text-left text-small text-muted">1/8 cup equivalents (US)</caption>
+        <caption className="pb-2 text-left text-small text-muted">{label} cup equivalents (US)</caption>
         <tbody>
           {rows.map((r) => (
             <tr key={r.label} className={rowLine}>
               <th scope="row" className={td + ' font-normal'}>{r.label}</th>
               <td className={tdNum}>{r.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function GramsToTablespoonsChart() {
+  const rows = gramsToTablespoonsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Grams to tablespoons (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Grams</th>
+            {G2TBSP_COLS.map((id) => (
+              <th scope="col" key={id} className={thNum}>{colName(id)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.grams} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.grams} g</th>
+              {r.cells.map((c, i) => (
+                <td key={i} className={tdNum}>{c}</td>
+              ))}
             </tr>
           ))}
         </tbody>

@@ -11,9 +11,9 @@ import {
   ToolPageFrame,
 } from '@/components/content';
 import { AdSlot } from '@/components/AdSlot';
-import { EighthCupTool } from '@/components/tools/EighthCupTool';
-import { EighthCupEquivalentsTable } from '@/components/tables/Tables';
-import { EighthCupTable } from '@/components/tables/EighthCupTable';
+import { CupFractionTool } from '@/components/tools/CupFractionTool';
+import { CupFractionEquivalentsTable } from '@/components/tables/Tables';
+import { CupFractionTable } from '@/components/tables/CupFractionTable';
 import { getPage } from '@/lib/data/pages';
 
 const SLUG = '/tablespoons-in-1-8-cup/';
@@ -30,7 +30,7 @@ export default function Page() {
       </QuickAnswer>
 
       <div className="mt-6">
-        <EighthCupTool />
+        <CupFractionTool fraction={1 / 8} />
       </div>
 
       <Section title="How to use" id="how-to">
@@ -88,8 +88,8 @@ export default function Page() {
 
       <Section title="Reference tables" id="tables">
         <div className="space-y-8">
-          <EighthCupEquivalentsTable />
-          <EighthCupTable />
+          <CupFractionEquivalentsTable fraction={1 / 8} />
+          <CupFractionTable fraction={1 / 8} />
         </div>
       </Section>
 

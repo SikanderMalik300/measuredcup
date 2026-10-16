@@ -75,7 +75,13 @@ export default function Page() {
       <Section title="Reference tables" id="tables">
         <div className="space-y-8">
           <TablespoonsToCupsChart />
-          <SpoonGramsByIngredientTable />
+          <div>
+            <SpoonGramsByIngredientTable />
+            <p className="mt-2 text-small text-muted">
+              USDA lists 227 g for a cup of butter, so 8 tablespoons work out to 113.5 g. A US stick is
+              labeled 113 g. The 0.5 g gap is rounding.
+            </p>
+          </div>
         </div>
       </Section>
 

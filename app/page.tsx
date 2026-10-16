@@ -32,7 +32,10 @@ export default function Home() {
     ...INGREDIENTS.map((i) => ({ label: i.name, href: '/grams-to-cups/', kind: 'Ingredient' as const })),
   ];
 
-  const latest = [...toolPages(), getPage('/data/ingredient-weights/')];
+  // Latest updates: every tool page and the data page, newest first, ties keep registry order, max 8.
+  const latest = [...toolPages(), getPage('/data/ingredient-weights/')]
+    .sort((a, b) => b.lastUpdated.localeCompare(a.lastUpdated))
+    .slice(0, 8);
 
   return (
     <div>

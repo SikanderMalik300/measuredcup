@@ -52,10 +52,12 @@ export default function Page() {
             <tbody>
               {[
                 ['grams', 'cups', 'Grams to cups', '/grams-to-cups/'],
+                ['grams', 'tablespoons', 'Grams to tablespoons', '/grams-to-tablespoons/'],
                 ['cups', 'scale', 'Cups to grams', '/cups-to-grams/'],
                 ['tablespoons', 'measuring cups', 'Tablespoons to cups', '/tablespoons-to-cups/'],
                 ['tablespoons', 'scale', 'Tablespoons to grams', '/tablespoons-to-grams/'],
                 ['1/8 cup', 'tablespoons', 'Tablespoons in 1/8 cup', '/tablespoons-in-1-8-cup/'],
+                ['1/4 cup', 'tablespoons', 'Tablespoons in 1/4 cup', '/tablespoons-in-1-4-cup/'],
                 ['sticks or grams of butter', 'either', 'Butter converter', '/butter-converter/'],
               ].map((r) => (
                 <tr key={r[3]} className="border-b border-line">
