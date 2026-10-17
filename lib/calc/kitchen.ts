@@ -206,6 +206,19 @@ export function fewestScoops(totalTsp: number): string {
   return formatScoops(wholeCups, options[0]);
 }
 
+/**
+ * Express a teaspoon amount as whole tablespoons plus whole teaspoons, e.g. 16 -> "5 tbsp + 1 tsp".
+ * Used where a cup fraction is not a whole number of tablespoons (1/3 cup).
+ */
+export function tbspTspLabel(totalTsp: number): string {
+  const tbsp = Math.floor(totalTsp / TBSP_TSP + 1e-9);
+  const tsp = Math.round(totalTsp - tbsp * TBSP_TSP);
+  const parts: string[] = [];
+  if (tbsp > 0) parts.push(`${tbsp} tbsp`);
+  if (tsp > 0) parts.push(`${tsp} tsp`);
+  return parts.length ? parts.join(' + ') : '0';
+}
+
 function formatScoops(wholeCups: number, opt: ScoopOption): string {
   const parts: string[] = [];
   const fracLabel = opt.frac?.label;

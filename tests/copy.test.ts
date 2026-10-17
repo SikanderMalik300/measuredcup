@@ -67,6 +67,13 @@ describe('writing rules (A13)', () => {
   });
 });
 
+describe('registry titles fit in a search result', () => {
+  it('every title is 60 characters or less', () => {
+    const tooLong = PAGES.filter((p) => p.title.length > 60).map((p) => `${p.slug} (${p.title.length})`);
+    expect(tooLong).toEqual([]);
+  });
+});
+
 describe('FAQ JSON-LD equals visible FAQ text (A12)', () => {
   it('every FAQPage question and answer matches the registry', () => {
     for (const p of PAGES) {

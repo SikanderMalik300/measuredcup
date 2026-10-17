@@ -105,7 +105,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Fractions welcome: 2/3 cup, 1 1/2 cups',
-    related: ['/grams-to-cups/', '/tablespoons-to-grams/', '/recipe-scaler/', '/data/ingredient-weights/'],
+    related: ['/grams-to-cups/', '/tablespoons-to-grams/', '/cups-in-a-quart/', '/data/ingredient-weights/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'four-cups',
@@ -222,14 +222,14 @@ export const PAGES: PageEntry[] = [
   },
   {
     slug: '/half-a-measurement/',
-    title: 'Half of a Measurement Calculator (Cups and Spoons) | MeasuredCup',
+    title: 'Half a Measurement Calculator (Cups & Spoons) | MeasuredCup',
     metaDescription:
       'Half of 3/4 cup is 1/4 cup plus 2 tablespoons. Halve, third or double any cup, tablespoon or teaspoon amount and get measuring-spoon combinations.',
     h1: 'Half of a Measurement Calculator',
     kind: 'tool',
     category: 'recipe-tools',
     tileLine: 'Halve, third or double a single amount',
-    related: ['/recipe-scaler/', '/tablespoons-to-cups/', '/tablespoons-to-grams/', '/butter-converter/'],
+    related: ['/recipe-scaler/', '/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/tablespoons-to-grams/'],
     lastUpdated: LAST_UPDATED,
     sources: [
       { key: 'nist', note: 'cup = 16 tbsp = 48 tsp' },
@@ -261,7 +261,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'recipe-tools',
     tileLine: 'Paste a recipe, change the servings',
-    related: ['/half-a-measurement/', '/cups-to-grams/', '/butter-converter/', '/grams-to-cups/'],
+    related: ['/half-a-measurement/', '/cups-to-grams/', '/cups-in-a-quart/', '/grams-to-cups/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'nist' }],
     photoId: 'cookbooks-counter',
@@ -303,7 +303,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '4 tbsp, plus grams for 23 ingredients',
-    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-to-cups/', '/tablespoons-to-grams/', '/butter-converter/'],
+    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/tablespoons-to-grams/'],
     lastUpdated: '2026-10-16',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
     photoId: 'butter-flour-eggs',
@@ -378,7 +378,7 @@ export const PAGES: PageEntry[] = [
   },
   {
     slug: '/tablespoons-to-cups/',
-    title: 'Tablespoons to Cups Converter (Chart + Fractions) | MeasuredCup',
+    title: 'Tablespoons to Cups Converter + Chart | MeasuredCup',
     metaDescription:
       '16 tablespoons make 1 cup. Convert tablespoons to cups with real measuring-cup answers like 1/2 cup + 2 tbsp, plus mL, fluid ounces and grams by ingredient.',
     h1: 'Tablespoons to Cups Converter',
@@ -459,10 +459,97 @@ export const PAGES: PageEntry[] = [
     inSitemap: true,
   },
 
+  {
+    slug: '/tablespoons-in-1-3-cup/',
+    title: 'How Many Tablespoons in 1/3 Cup? Plus Grams | MeasuredCup',
+    metaDescription:
+      '1/3 cup is 5 tablespoons plus 1 teaspoon (16 teaspoons, 78.9 mL). See what 1/3 cup of flour, sugar, butter, water and 19 more ingredients weighs in grams.',
+    h1: 'How Many Tablespoons in 1/3 Cup?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '5 tbsp + 1 tsp, plus grams',
+    related: ['/tablespoons-in-1-4-cup/', '/tablespoons-to-cups/', '/half-a-measurement/', '/tablespoons-to-grams/'],
+    lastUpdated: '2026-10-17',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'copper-cups-paper',
+    faq: [
+      {
+        q: 'How many tablespoons are in 1/3 cup?',
+        a: '5 tablespoons plus 1 teaspoon, which is 5 1/3 tablespoons. A cup holds 16 tablespoons, and 16 ÷ 3 leaves one third of a tablespoon, which is exactly 1 teaspoon.',
+      },
+      {
+        q: 'Is 5 tablespoons a third of a cup?',
+        a: 'Almost. 5 tablespoons is 1 teaspoon short of 1/3 cup. Add one level teaspoon to make it exact.',
+      },
+      {
+        q: 'Is 6 tablespoons equal to 1/3 cup?',
+        a: 'No. 6 tablespoons is 3/8 cup, which is 2 teaspoons more than 1/3 cup.',
+      },
+      {
+        q: 'How many grams is 1/3 cup of flour?',
+        a: "About 41.7 g of all-purpose flour using USDA's 125 g per cup, or 40 g using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How much butter is 1/3 cup?',
+        a: "5 tablespoons plus 1 teaspoon, about 2/3 of a US stick. By weight that's about 75.7 g.",
+      },
+      {
+        q: 'How many tablespoons are in 2/3 cup?',
+        a: "10 tablespoons plus 2 teaspoons. It's double the 1/3 cup amount.",
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/cups-in-a-quart/',
+    title: 'How Many Cups in a Quart? 4, Plus Dry Quarts | MeasuredCup',
+    metaDescription:
+      'A US quart is 4 cups, 2 pints or 32 fluid ounces (946 mL). See the quarts to cups chart, plus why a dry quart of berries holds about 4.65 cups.',
+    h1: 'How Many Cups in a Quart?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '4 cups, plus pints, gallons and mL',
+    related: ['/tablespoons-to-cups/', '/cups-to-grams/', '/recipe-scaler/', '/half-a-measurement/'],
+    lastUpdated: '2026-10-17',
+    sources: [{ key: 'nist' }, { key: 'usda' }],
+    photoId: 'four-cups',
+    faq: [
+      {
+        q: 'How many cups are in a quart?',
+        a: "4 cups in a US liquid quart. That's the same as 2 pints or 32 fluid ounces.",
+      },
+      {
+        q: 'Is 2 cups a quart?',
+        a: 'No. 2 cups is a pint, which is half a quart. You need 4 cups for a full quart.',
+      },
+      {
+        q: 'How many cups are in 2 quarts?',
+        a: '8 cups. Multiply quarts by 4.',
+      },
+      {
+        q: 'How many ounces are in a quart?',
+        a: '32 US fluid ounces. By weight, a quart of water is about 948 g, or 2.09 pounds.',
+      },
+      {
+        q: 'How many cups are in a quart of strawberries?',
+        a: 'Berries are sold by the dry quart, which is about 4.65 US cups by volume. That\'s larger than a liquid quart, so expect a little more than 4 cups of whole berries.',
+      },
+      {
+        q: 'Is a quart bigger than a liter?',
+        a: 'No, slightly smaller. A US quart is 946 mL, about 95% of a liter. A liter is about 4.23 US cups.',
+      },
+      {
+        q: 'How many cups are in a gallon?',
+        a: '16 cups. A gallon is 4 quarts, and each quart is 4 cups.',
+      },
+    ],
+    inSitemap: true,
+  },
+
   // ---- Data page ----
   {
     slug: '/data/ingredient-weights/',
-    title: 'Ingredient Weights per Cup: USDA vs King Arthur | MeasuredCup',
+    title: 'Cup Weights by Ingredient: USDA vs King Arthur | MeasuredCup',
     metaDescription:
       'Grams per US cup, tablespoon and teaspoon for 23 baking ingredients, comparing USDA FoodData Central and King Arthur Baking. Free CSV download.',
     h1: 'Ingredient Weights per Cup: USDA vs King Arthur',

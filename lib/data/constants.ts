@@ -23,6 +23,16 @@ export const ML_PER_LEGAL_CUP = 240;
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const ML_PER_FL_OZ = 29.5735295625;
 
+// US liquid pint, quart and gallon. Source: NIST Handbook 44 Appendix C (accessed 2026-10-16).
+export const ML_PER_PINT = 473.176473;
+export const ML_PER_QUART = 946.352946;
+export const ML_PER_GALLON = 3785.411784;
+
+// US dry quart (67.200625 cubic inches) and the UK imperial quart, for comparison only.
+// Source: NIST Handbook 44 Appendix C (accessed 2026-10-16).
+export const ML_PER_DRY_QUART = 1101.220942715;
+export const ML_PER_IMPERIAL_QUART = 1136.5225;
+
 // Avoirdupois ounce (weight).
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const G_PER_OZ = 28.349523125;

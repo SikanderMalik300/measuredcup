@@ -5,7 +5,11 @@ import {
   tablespoonsToCupsRows,
   spoonGramsByIngredient,
   cupFractionEquivalents,
+  cupFractionLabel,
   gramsToTablespoonsRows,
+  quartsToCupsRows,
+  threeQuartsRows,
+  quartWeightRows,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -211,7 +215,7 @@ export function SpoonGramsByIngredientTable() {
 
 export function CupFractionEquivalentsTable({ fraction }: { fraction: number }) {
   const rows = cupFractionEquivalents(fraction);
-  const label = fraction === 1 / 4 ? '1/4' : '1/8';
+  const label = cupFractionLabel(fraction);
   return (
     <TableWrap>
       <table className="w-full border-collapse">
@@ -250,6 +254,91 @@ export function GramsToTablespoonsChart() {
               {r.cells.map((c, i) => (
                 <td key={i} className={tdNum}>{c}</td>
               ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function QuartsToCupsChart() {
+  const rows = quartsToCupsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Quarts to cups chart (US liquid)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Quarts</th>
+            <th scope="col" className={thNum}>Cups</th>
+            <th scope="col" className={thNum}>Pints</th>
+            <th scope="col" className={thNum}>Fluid ounces</th>
+            <th scope="col" className={thNum}>mL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.quarts} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.quarts}</th>
+              <td className={tdNum}>{r.cups}</td>
+              <td className={tdNum}>{r.pints}</td>
+              <td className={tdNum}>{r.flOz}</td>
+              <td className={tdNum}>{r.ml}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function ThreeQuartsTable() {
+  const rows = threeQuartsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Three kinds of quart</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Quart</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>US cups</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.cups}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function QuartWeightTable() {
+  const rows = quartWeightRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">What a quart weighs (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Liquid</th>
+            <th scope="col" className={thNum}>Grams</th>
+            <th scope="col" className={thNum}>Pounds</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.grams} g</td>
+              <td className={tdNum}>{r.pounds}</td>
             </tr>
           ))}
         </tbody>
