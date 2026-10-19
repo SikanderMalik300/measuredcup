@@ -59,7 +59,9 @@ export default function Page() {
                 ['1/8 cup', 'tablespoons', 'Tablespoons in 1/8 cup', '/tablespoons-in-1-8-cup/'],
                 ['1/4 cup', 'tablespoons', 'Tablespoons in 1/4 cup', '/tablespoons-in-1-4-cup/'],
                 ['1/3 cup', 'tablespoons', 'Tablespoons in 1/3 cup', '/tablespoons-in-1-3-cup/'],
+                ['2/3 cup', 'tablespoons', 'Tablespoons in 2/3 cup', '/tablespoons-in-2-3-cup/'],
                 ['quarts or pints', 'cups', 'Cups in a quart', '/cups-in-a-quart/'],
+                ['gallons', 'cups', 'Cups in a gallon', '/cups-in-a-gallon/'],
                 ['sticks or grams of butter', 'either', 'Butter converter', '/butter-converter/'],
               ].map((r) => (
                 <tr key={r[3]} className="border-b border-line">

@@ -33,6 +33,11 @@ export const ML_PER_GALLON = 3785.411784;
 export const ML_PER_DRY_QUART = 1101.220942715;
 export const ML_PER_IMPERIAL_QUART = 1136.5225;
 
+// UK imperial gallon and US dry gallon, for comparison only.
+// Source: NIST Handbook 44 Appendix C (accessed 2026-10-18).
+export const ML_PER_IMPERIAL_GALLON = 4546.09;
+export const ML_PER_DRY_GALLON = 4404.88377086;
+
 // Avoirdupois ounce (weight).
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const G_PER_OZ = 28.349523125;

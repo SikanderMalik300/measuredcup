@@ -10,6 +10,9 @@ import {
   quartsToCupsRows,
   threeQuartsRows,
   quartWeightRows,
+  gallonsToCupsRows,
+  threeGallonsRows,
+  gallonWeightRows,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -326,6 +329,93 @@ export function QuartWeightTable() {
     <TableWrap>
       <table className="w-full border-collapse">
         <caption className="pb-2 text-left text-small text-muted">What a quart weighs (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Liquid</th>
+            <th scope="col" className={thNum}>Grams</th>
+            <th scope="col" className={thNum}>Pounds</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.grams} g</td>
+              <td className={tdNum}>{r.pounds}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function GallonsToCupsChart() {
+  const rows = gallonsToCupsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Gallons to cups chart (US liquid)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Gallons</th>
+            <th scope="col" className={thNum}>Cups</th>
+            <th scope="col" className={thNum}>Quarts</th>
+            <th scope="col" className={thNum}>Pints</th>
+            <th scope="col" className={thNum}>Fluid ounces</th>
+            <th scope="col" className={thNum}>Liters</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.gallons} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.gallons}</th>
+              <td className={tdNum}>{r.cups}</td>
+              <td className={tdNum}>{r.quarts}</td>
+              <td className={tdNum}>{r.pints}</td>
+              <td className={tdNum}>{r.flOz}</td>
+              <td className={tdNum}>{r.liters}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function ThreeGallonsTable() {
+  const rows = threeGallonsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Three kinds of gallon</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Gallon</th>
+            <th scope="col" className={thNum}>Liters</th>
+            <th scope="col" className={thNum}>US cups</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.liters}</td>
+              <td className={tdNum}>{r.cups}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function GallonWeightTable() {
+  const rows = gallonWeightRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">What a gallon weighs (USDA)</caption>
         <thead>
           <tr className={rowLine}>
             <th scope="col" className={th}>Liquid</th>

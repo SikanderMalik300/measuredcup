@@ -13,6 +13,8 @@ import {
   ML_PER_GALLON,
   ML_PER_DRY_QUART,
   ML_PER_IMPERIAL_QUART,
+  ML_PER_IMPERIAL_GALLON,
+  ML_PER_DRY_GALLON,
 } from '../data/constants';
 
 /** Format a cup amount for a reference table: kitchen fraction to the nearest 1/8 cup, or
@@ -126,11 +128,12 @@ export function spoonGramsByIngredient() {
 
 // ---- Cup fractions (pages /tablespoons-in-1-8-cup/ and /tablespoons-in-1-4-cup/) ----
 
-/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8, 1/4 and 1/3. */
+/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8, 1/4, 1/3 and 2/3. */
 export function cupFractionLabel(fraction: number): string {
   if (Math.abs(fraction - 1 / 8) < 1e-9) return '1/8';
   if (Math.abs(fraction - 1 / 4) < 1e-9) return '1/4';
   if (Math.abs(fraction - 1 / 3) < 1e-9) return '1/3';
+  if (Math.abs(fraction - 2 / 3) < 1e-9) return '2/3';
   return trimDecimal(fraction, 4);
 }
 
@@ -155,14 +158,21 @@ export function cupFractionEquivalents(fraction: number): { label: string; value
     rows.push({ label: `Half of ${label} cup`, value: '2 tbsp (1/8 cup)' });
     rows.push({ label: `Double ${label} cup`, value: fewestScoops(tsp * 2) }); // 1/2 cup
     rows.push({ label: 'Butter', value: '1/2 stick' });
-  } else {
-    // 1/3 cup
+  } else if (Math.abs(fraction - 1 / 3) < 1e-9) {
     rows.push({ label: `Half of ${label} cup`, value: tbspTspLabel(tsp / 2) }); // 2 tbsp + 2 tsp
     rows.push({
       label: `Double ${label} cup`,
       value: `${fewestScoops(tsp * 2)} (${tbspTspLabel(tsp * 2)})`, // 2/3 cup (10 tbsp + 2 tsp)
     });
     rows.push({ label: 'Butter', value: '5 tbsp + 1 tsp, about 2/3 of a stick' });
+  } else {
+    // 2/3 cup
+    rows.push({
+      label: `Half of ${label} cup`,
+      value: `${fewestScoops(tsp / 2)} (${tbspTspLabel(tsp / 2)})`, // 1/3 cup (5 tbsp + 1 tsp)
+    });
+    rows.push({ label: `Double ${label} cup`, value: fewestScoops(tsp * 2) }); // 1 1/3 cups
+    rows.push({ label: 'Butter', value: '10 tbsp + 2 tsp, 1 1/3 sticks' });
   }
   return rows;
 }
@@ -295,19 +305,50 @@ export function threeQuartsRows() {
   ];
 }
 
-// "What a quart weighs (USDA)" table.
-const QUART_WEIGHT_IDS = ['water', 'milk', 'heavy-cream', 'vegetable-oil', 'maple-syrup', 'honey'];
+// "What a quart/gallon weighs (USDA)" tables. cupsCount = cups in the unit (4 for a quart, 16 for a gallon).
+const LIQUID_WEIGHT_IDS = ['water', 'milk', 'heavy-cream', 'vegetable-oil', 'maple-syrup', 'honey'];
 
-export function quartWeightRows() {
-  return QUART_WEIGHT_IDS.map((id) => {
+function liquidWeightRows(cupsCount: number) {
+  return LIQUID_WEIGHT_IDS.map((id) => {
     const ing = getIngredient(id);
-    const grams = 4 * ing.usdaGramsPerCup;
+    const grams = cupsCount * ing.usdaGramsPerCup;
     return {
       name: ing.name,
       grams: withComma(Math.round(grams)),
       pounds: roundTo(grams / 453.59237, 2).toFixed(2),
     };
   });
+}
+
+export const quartWeightRows = () => liquidWeightRows(4);
+export const gallonWeightRows = () => liquidWeightRows(16);
+
+// ---- Cups in a gallon (page /cups-in-a-gallon/) ----
+
+const GALLON_ROWS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 5];
+
+export function gallonsToCupsRows() {
+  return GALLON_ROWS.map((g) => ({
+    gallons: formatFraction(g),
+    cups: String(g * 16),
+    quarts: String(g * 4),
+    pints: String(g * 8),
+    flOz: String(g * 128),
+    liters: roundTo((g * ML_PER_GALLON) / 1000, 2).toFixed(2),
+  }));
+}
+
+export function threeGallonsRows() {
+  const row = (name: string, ml: number) => ({
+    name,
+    liters: roundTo(ml / 1000, 2).toFixed(2),
+    cups: trimDecimal(ml / ML_PER_CUP, 2),
+  });
+  return [
+    row('US liquid gallon', ML_PER_GALLON),
+    row('UK imperial gallon', ML_PER_IMPERIAL_GALLON),
+    row('US dry gallon', ML_PER_DRY_GALLON),
+  ];
 }
 
 // ---- Butter amounts (build spec A8.4). Static copy values. ----

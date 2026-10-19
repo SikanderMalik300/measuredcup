@@ -105,7 +105,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Fractions welcome: 2/3 cup, 1 1/2 cups',
-    related: ['/grams-to-cups/', '/tablespoons-to-grams/', '/cups-in-a-quart/', '/data/ingredient-weights/'],
+    related: ['/grams-to-cups/', '/tablespoons-in-2-3-cup/', '/cups-in-a-quart/', '/data/ingredient-weights/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'four-cups',
@@ -261,7 +261,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'recipe-tools',
     tileLine: 'Paste a recipe, change the servings',
-    related: ['/half-a-measurement/', '/cups-to-grams/', '/cups-in-a-quart/', '/grams-to-cups/'],
+    related: ['/half-a-measurement/', '/cups-to-grams/', '/cups-in-a-quart/', '/cups-in-a-gallon/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'nist' }],
     photoId: 'cookbooks-counter',
@@ -468,7 +468,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '5 tbsp + 1 tsp, plus grams',
-    related: ['/tablespoons-in-1-4-cup/', '/tablespoons-to-cups/', '/half-a-measurement/', '/tablespoons-to-grams/'],
+    related: ['/tablespoons-in-1-4-cup/', '/tablespoons-in-2-3-cup/', '/tablespoons-to-cups/', '/half-a-measurement/'],
     lastUpdated: '2026-10-17',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
     photoId: 'copper-cups-paper',
@@ -509,7 +509,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '4 cups, plus pints, gallons and mL',
-    related: ['/tablespoons-to-cups/', '/cups-to-grams/', '/recipe-scaler/', '/half-a-measurement/'],
+    related: ['/cups-in-a-gallon/', '/tablespoons-to-cups/', '/cups-to-grams/', '/recipe-scaler/'],
     lastUpdated: '2026-10-17',
     sources: [{ key: 'nist' }, { key: 'usda' }],
     photoId: 'four-cups',
@@ -541,6 +541,89 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How many cups are in a gallon?',
         a: '16 cups. A gallon is 4 quarts, and each quart is 4 cups.',
+      },
+    ],
+    inSitemap: true,
+  },
+
+  {
+    slug: '/tablespoons-in-2-3-cup/',
+    title: 'How Many Tablespoons in 2/3 Cup? Plus Grams | MeasuredCup',
+    metaDescription:
+      '2/3 cup is 10 tablespoons plus 2 teaspoons (32 teaspoons, 157.7 mL). See what 2/3 cup of flour, sugar, butter, milk and 19 more ingredients weighs in grams.',
+    h1: 'How Many Tablespoons in 2/3 Cup?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '10 tbsp + 2 tsp, plus grams',
+    related: ['/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/half-a-measurement/', '/cups-to-grams/'],
+    lastUpdated: '2026-10-18',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'four-cups',
+    faq: [
+      {
+        q: 'How many tablespoons are in 2/3 cup?',
+        a: "10 tablespoons plus 2 teaspoons, which is 10 2/3 tablespoons. It's double the 5 tablespoons plus 1 teaspoon in 1/3 cup.",
+      },
+      {
+        q: 'How many tablespoons of butter is 2/3 cup?',
+        a: "10 tablespoons plus 2 teaspoons, or 1 1/3 US sticks. By weight that's about 151 g.",
+      },
+      {
+        q: 'How many 1/4 cups equal 2/3 cup?',
+        a: '2 2/3 quarter cups. In practice, two 1/4 cups plus 2 tablespoons and 2 teaspoons.',
+      },
+      {
+        q: 'How many grams is 2/3 cup of flour?',
+        a: "About 83.3 g of all-purpose flour using USDA's 125 g per cup, or 80 g using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How many grams is 2/3 cup of sugar?',
+        a: "About 133 g of granulated sugar using USDA's 200 g per cup. Packed brown sugar is about 147 g.",
+      },
+      {
+        q: 'What is half of 2/3 cup?',
+        a: '1/3 cup, which is 5 tablespoons plus 1 teaspoon.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/cups-in-a-gallon/',
+    title: 'How Many Cups in a Gallon? 16, Plus a Chart | MeasuredCup',
+    metaDescription:
+      'A US gallon is 16 cups, 4 quarts, 8 pints or 128 fluid ounces (3.79 L). See the gallons to cups chart and what a gallon of water or milk weighs.',
+    h1: 'How Many Cups in a Gallon?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '16 cups, plus quarts, pints and liters',
+    related: ['/cups-in-a-quart/', '/tablespoons-to-cups/', '/recipe-scaler/', '/cups-to-grams/'],
+    lastUpdated: '2026-10-18',
+    sources: [{ key: 'nist' }, { key: 'usda' }],
+    photoId: 'cookbooks-counter',
+    faq: [
+      {
+        q: 'How many cups are in a gallon?',
+        a: "16 cups in a US gallon. That's the same as 4 quarts or 8 pints.",
+      },
+      {
+        q: 'How many cups are in half a gallon?',
+        a: '8 cups, which is 2 quarts or 64 fluid ounces.',
+      },
+      {
+        q: 'How many ounces are in a gallon?',
+        a: '128 US fluid ounces. By weight, a gallon of water is about 8.35 to 8.36 pounds.',
+      },
+      {
+        q: 'How many cups are in a UK gallon?',
+        a: 'About 19.2 US cups. The imperial gallon is 4.55 L, about 20% bigger than the US gallon.',
+      },
+      {
+        q: 'How much does a gallon of milk weigh?',
+        a: "About 3,904 g, or 8.61 pounds, using USDA's 244 g per cup of whole milk.",
+      },
+      {
+        q: 'How many quarts are in a gallon?',
+        a: '4 quarts. Each quart is 4 cups, so a gallon is 16 cups.',
       },
     ],
     inSitemap: true,

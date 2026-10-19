@@ -9,20 +9,36 @@ import { tbspTspLabel } from '@/lib/calc/kitchen';
 import { track } from '@/lib/analytics';
 import { Field, IngredientSelect, SegmentedSource, ResultCard, type SourceValue } from './ui';
 
-/** Grams in a cup fraction (1/8, 1/4 or 1/3) by ingredient, with equivalents. */
+// "Need a different amount?" links per fraction.
+const NEXT_LINKS: Record<string, { text: string; href: string }[]> = {
+  '1/8': [
+    { text: 'tablespoons to cups', href: '/tablespoons-to-cups/' },
+    { text: 'tablespoons to grams', href: '/tablespoons-to-grams/' },
+  ],
+  '1/4': [
+    { text: 'tablespoons to cups', href: '/tablespoons-to-cups/' },
+    { text: 'tablespoons to grams', href: '/tablespoons-to-grams/' },
+  ],
+  '1/3': [
+    { text: 'tablespoons to cups', href: '/tablespoons-to-cups/' },
+    { text: 'half a measurement', href: '/half-a-measurement/' },
+  ],
+  '2/3': [
+    { text: 'tablespoons in 1/3 cup', href: '/tablespoons-in-1-3-cup/' },
+    { text: 'cups to grams', href: '/cups-to-grams/' },
+  ],
+};
+
+/** Grams in a cup fraction (1/8, 1/4, 1/3 or 2/3) by ingredient, with equivalents. */
 export function CupFractionTool({ fraction }: { fraction: number }) {
   const [ingredientId, setIngredientId] = useState('ap-flour');
   const [source, setSource] = useState<SourceValue>('usda');
 
-  const divisor = Math.round(1 / fraction); // 8, 4 or 3
-  const label = cupFractionLabel(fraction); // "1/8", "1/4" or "1/3"
+  const label = cupFractionLabel(fraction); // "1/8", "1/4", "1/3" or "2/3"
+  const [num, denom] = label.split('/').map(Number);
   const tsp = Math.round(48 * fraction);
-  const toolName = `tablespoons-in-1-${divisor}-cup`;
-  // 1/3 cup links to half-a-measurement (its fractional spoons); 1/8 and 1/4 link to grams.
-  const secondLink =
-    divisor === 3
-      ? { href: '/half-a-measurement/', text: 'half a measurement' }
-      : { href: '/tablespoons-to-grams/', text: 'tablespoons to grams' };
+  const toolName = `tablespoons-in-${label.replace('/', '-')}-cup`;
+  const [link1, link2] = NEXT_LINKS[label];
 
   useEffect(() => {
     const t = setTimeout(() => track('tool_used', { tool: toolName }), 150);
@@ -35,7 +51,8 @@ export function CupFractionTool({ fraction }: { fraction: number }) {
   const perTbsp = gramsCell(perCup / 16);
   const sourceLabel = source === 'usda' ? 'USDA' : 'King Arthur';
   const equiv = `${tbspTspLabel(tsp)} · ${tsp} tsp · ${trimDecimal(8 * fraction, 2)} fl oz · ${mlFromTsp(tsp)} mL`;
-  const math = `${perCup} ÷ ${divisor} = ${grams} g`;
+  const math =
+    num === 1 ? `${perCup} ÷ ${denom} = ${grams} g` : `${perCup} × ${num} ÷ ${denom} = ${grams} g`;
   const copyText = `${label} cup of ${ing.name.toLowerCase()} is ${grams} g (${sourceLabel}). That is ${equiv}.`;
   const shareParams = `ing=${ingredientId}&src=${source}`;
 
@@ -66,9 +83,9 @@ export function CupFractionTool({ fraction }: { fraction: number }) {
 
       <p className="mt-3 text-small text-muted">
         Need a different amount? Use{' '}
-        <Link href="/tablespoons-to-cups/" prefetch={false} className="link">tablespoons to cups</Link>{' '}
+        <Link href={link1.href} prefetch={false} className="link">{link1.text}</Link>{' '}
         or{' '}
-        <Link href={secondLink.href} prefetch={false} className="link">{secondLink.text}</Link>.
+        <Link href={link2.href} prefetch={false} className="link">{link2.text}</Link>.
       </p>
     </div>
   );

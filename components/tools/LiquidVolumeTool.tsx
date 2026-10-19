@@ -19,9 +19,15 @@ const UNITS: { v: LiquidUnit; label: string }[] = [
   { v: 'liters', label: 'Liters' },
 ];
 
-export function LiquidVolumeTool() {
+export function LiquidVolumeTool({
+  defaultUnit = 'quarts',
+  toolName = 'cups-in-a-quart',
+}: {
+  defaultUnit?: LiquidUnit;
+  toolName?: string;
+} = {}) {
   const [amountText, setAmountText] = useState('1');
-  const [from, setFrom] = useState<LiquidUnit>('quarts');
+  const [from, setFrom] = useState<LiquidUnit>(defaultUnit);
   const [copied, setCopied] = useState(false);
   const [showMath, setShowMath] = useState(false);
 
@@ -29,10 +35,10 @@ export function LiquidVolumeTool() {
 
   useEffect(() => {
     const t = setTimeout(() => {
-      if (amount != null) track('tool_used', { tool: 'cups-in-a-quart' });
+      if (amount != null) track('tool_used', { tool: toolName });
     }, 150);
     return () => clearTimeout(t);
-  }, [amount, from]);
+  }, [amount, from, toolName]);
 
   const doCopy = async (text: string, event: 'copy_result' | 'share_link') => {
     try {
@@ -42,7 +48,7 @@ export function LiquidVolumeTool() {
     } catch {
       /* ignore */
     }
-    track(event, { tool: 'cups-in-a-quart' });
+    track(event, { tool: toolName });
   };
 
   const inputs = (children: React.ReactNode) => (
@@ -129,7 +135,7 @@ export function LiquidVolumeTool() {
           type="button"
           className="btn-secondary"
           onClick={() => {
-            track('print', { tool: 'cups-in-a-quart' });
+            track('print', { tool: toolName });
             window.print();
           }}
         >
