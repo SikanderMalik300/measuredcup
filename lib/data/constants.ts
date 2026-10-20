@@ -38,6 +38,11 @@ export const ML_PER_IMPERIAL_QUART = 1136.5225;
 export const ML_PER_IMPERIAL_GALLON = 4546.09;
 export const ML_PER_DRY_GALLON = 4404.88377086;
 
+// US dry pint and UK imperial pint, for comparison only.
+// Source: NIST Handbook 44 Appendix C (accessed 2026-10-20).
+export const ML_PER_DRY_PINT = 550.6104713575;
+export const ML_PER_IMPERIAL_PINT = 568.26125;
+
 // Avoirdupois ounce (weight).
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const G_PER_OZ = 28.349523125;

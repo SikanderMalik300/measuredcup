@@ -64,7 +64,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Any weight to US cups, for 23 ingredients',
-    related: ['/cups-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-grams/', '/data/ingredient-weights/'],
+    related: ['/cups-to-grams/', '/grams-to-ml/', '/grams-to-tablespoons/', '/data/ingredient-weights/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'scale-flour',
@@ -344,7 +344,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Grams to spoons for 23 ingredients',
-    related: ['/tablespoons-to-grams/', '/grams-to-cups/', '/tablespoons-to-cups/', '/butter-converter/'],
+    related: ['/grams-to-ml/', '/tablespoons-to-grams/', '/grams-to-cups/', '/tablespoons-to-cups/'],
     lastUpdated: '2026-10-16',
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'scale-flour',
@@ -509,7 +509,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '4 cups, plus pints, gallons and mL',
-    related: ['/cups-in-a-gallon/', '/tablespoons-to-cups/', '/cups-to-grams/', '/recipe-scaler/'],
+    related: ['/cups-in-a-pint/', '/cups-in-a-gallon/', '/tablespoons-to-cups/', '/cups-to-grams/'],
     lastUpdated: '2026-10-17',
     sources: [{ key: 'nist' }, { key: 'usda' }],
     photoId: 'four-cups',
@@ -596,7 +596,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '16 cups, plus quarts, pints and liters',
-    related: ['/cups-in-a-quart/', '/tablespoons-to-cups/', '/recipe-scaler/', '/cups-to-grams/'],
+    related: ['/cups-in-a-quart/', '/cups-in-a-pint/', '/tablespoons-to-cups/', '/cups-to-grams/'],
     lastUpdated: '2026-10-18',
     sources: [{ key: 'nist' }, { key: 'usda' }],
     photoId: 'cookbooks-counter',
@@ -624,6 +624,89 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How many quarts are in a gallon?',
         a: '4 quarts. Each quart is 4 cups, so a gallon is 16 cups.',
+      },
+    ],
+    inSitemap: true,
+  },
+
+  {
+    slug: '/grams-to-ml/',
+    title: 'Grams to mL Converter by Ingredient | MeasuredCup',
+    metaDescription:
+      'Convert grams to milliliters for flour, sugar, butter, milk, honey and 18 more ingredients. 100 g of flour is about 189 mL, but 100 g of honey is only 70 mL.',
+    h1: 'Grams to mL Converter',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: 'Grams to milliliters for 23 ingredients',
+    related: ['/grams-to-cups/', '/grams-to-tablespoons/', '/cups-to-grams/', '/data/ingredient-weights/'],
+    lastUpdated: '2026-10-20',
+    sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
+    photoId: 'scale-brown-sugar',
+    faq: [
+      {
+        q: 'Is 1 gram equal to 1 mL?',
+        a: 'Only for water and similar liquids. 1 g of water is about 1 mL. 1 g of flour takes up about 1.9 mL, and 1 g of honey only about 0.7 mL.',
+      },
+      {
+        q: 'How many mL is 100 grams of flour?',
+        a: "About 189 mL of all-purpose flour using USDA's 125 g per cup, or 197 mL using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How many mL is 100 grams of milk?',
+        a: 'About 97 mL of whole milk. Milk is slightly denser than water, at about 1.03 g per mL.',
+      },
+      {
+        q: 'How many mL is 100 grams of sugar?',
+        a: 'About 118 mL of granulated sugar, which is about 1/2 cup.',
+      },
+      {
+        q: 'How many mL is 100 grams of butter?',
+        a: 'About 104 mL, or 7 tablespoons. Butter is a little less dense than water.',
+      },
+      {
+        q: 'How do I convert grams of powder to mL?',
+        a: "Divide the grams by the powder's density in g per mL. For flour that's about 0.53, for cocoa 0.36 and for powdered sugar 0.51. If your powder isn't listed, check the package for a gram weight per scoop or spoon.",
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/cups-in-a-pint/',
+    title: 'How Many Cups in a Pint? 2, Plus Dry Pints | MeasuredCup',
+    metaDescription:
+      'A US pint is 2 cups, 16 fluid ounces or 473 mL. See the pints to cups chart, plus why a dry pint of blueberries holds about 2.33 cups.',
+    h1: 'How Many Cups in a Pint?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '2 cups, plus quarts, fl oz and mL',
+    related: ['/cups-in-a-quart/', '/cups-in-a-gallon/', '/tablespoons-to-cups/', '/cups-to-grams/'],
+    lastUpdated: '2026-10-20',
+    sources: [{ key: 'nist' }, { key: 'usda' }],
+    photoId: 'butter-flour-eggs',
+    faq: [
+      {
+        q: 'How many cups are in a pint?',
+        a: "2 cups in a US liquid pint. That's 16 fluid ounces or 473 mL.",
+      },
+      {
+        q: 'How many cups are in a pint of ice cream?',
+        a: '2 cups. Ice cream is sold by the US liquid pint, which holds 16 fluid ounces.',
+      },
+      {
+        q: 'How many cups are in a pint of blueberries?',
+        a: 'About 2.33 cups by volume. Berries are sold by the dry pint, which is 551 mL compared with 473 mL for a liquid pint.',
+      },
+      {
+        q: 'How many pints are in a quart?',
+        a: '2 pints. A quart is 4 cups and a pint is 2 cups.',
+      },
+      {
+        q: 'How many ounces are in a pint?',
+        a: '16 US fluid ounces. By weight, a pint of water is about 474 g, or 1.04 pounds.',
+      },
+      {
+        q: 'Is a UK pint bigger than a US pint?',
+        a: 'Yes. A UK pint is 568 mL, about 20% more than the US pint of 473 mL.',
       },
     ],
     inSitemap: true,

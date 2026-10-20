@@ -53,6 +53,7 @@ export default function Page() {
               {[
                 ['grams', 'cups', 'Grams to cups', '/grams-to-cups/'],
                 ['grams', 'tablespoons', 'Grams to tablespoons', '/grams-to-tablespoons/'],
+                ['grams', 'milliliters', 'Grams to mL', '/grams-to-ml/'],
                 ['cups', 'scale', 'Cups to grams', '/cups-to-grams/'],
                 ['tablespoons', 'measuring cups', 'Tablespoons to cups', '/tablespoons-to-cups/'],
                 ['tablespoons', 'scale', 'Tablespoons to grams', '/tablespoons-to-grams/'],
@@ -60,6 +61,7 @@ export default function Page() {
                 ['1/4 cup', 'tablespoons', 'Tablespoons in 1/4 cup', '/tablespoons-in-1-4-cup/'],
                 ['1/3 cup', 'tablespoons', 'Tablespoons in 1/3 cup', '/tablespoons-in-1-3-cup/'],
                 ['2/3 cup', 'tablespoons', 'Tablespoons in 2/3 cup', '/tablespoons-in-2-3-cup/'],
+                ['pints', 'cups', 'Cups in a pint', '/cups-in-a-pint/'],
                 ['quarts or pints', 'cups', 'Cups in a quart', '/cups-in-a-quart/'],
                 ['gallons', 'cups', 'Cups in a gallon', '/cups-in-a-gallon/'],
                 ['sticks or grams of butter', 'either', 'Butter converter', '/butter-converter/'],

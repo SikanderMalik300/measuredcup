@@ -1,4 +1,4 @@
-import { gramsToCups, cupsToGrams, spoonsToGrams } from './convert';
+import { gramsToCups, cupsToGrams, spoonsToGrams, gramsToMl, densityGml } from './convert';
 import { formatGrams, gramsCell, roundTo, trimDecimal } from './round';
 import { formatFraction } from './fraction';
 import { fewestScoops, tbspTspLabel } from './kitchen';
@@ -15,6 +15,8 @@ import {
   ML_PER_IMPERIAL_QUART,
   ML_PER_IMPERIAL_GALLON,
   ML_PER_DRY_GALLON,
+  ML_PER_DRY_PINT,
+  ML_PER_IMPERIAL_PINT,
 } from '../data/constants';
 
 /** Format a cup amount for a reference table: kitchen fraction to the nearest 1/8 cup, or
@@ -349,6 +351,62 @@ export function threeGallonsRows() {
     row('UK imperial gallon', ML_PER_IMPERIAL_GALLON),
     row('US dry gallon', ML_PER_DRY_GALLON),
   ];
+}
+
+// ---- Cups in a pint (page /cups-in-a-pint/) ----
+
+const PINT_ROWS = [0.5, 1, 1.5, 2, 3, 4, 8];
+
+export function pintsToCupsRows() {
+  return PINT_ROWS.map((p) => ({
+    pints: p === 8 ? '8 (1 gallon)' : formatFraction(p),
+    cups: String(p * 2),
+    flOz: String(p * 16),
+    quarts: formatFraction(p / 2),
+    ml: formatMl(p * ML_PER_PINT),
+  }));
+}
+
+export function threePintsRows() {
+  const row = (name: string, ml: number) => ({
+    name,
+    ml: formatMl(ml),
+    cups: trimDecimal(ml / ML_PER_CUP, 2),
+  });
+  return [
+    row('US liquid pint', ML_PER_PINT),
+    row('US dry pint', ML_PER_DRY_PINT),
+    row('UK imperial pint', ML_PER_IMPERIAL_PINT),
+  ];
+}
+
+export const pintWeightRows = () => liquidWeightRows(2);
+
+// ---- Grams to mL (page /grams-to-ml/) ----
+
+export const G2ML_ROWS = [10, 25, 50, 100, 200, 250, 500];
+export const G2ML_COLS = ['ap-flour', 'sugar', 'butter', 'milk', 'water', 'honey'];
+
+export function gramsToMlRows() {
+  return G2ML_ROWS.map((grams) => ({
+    grams,
+    cells: G2ML_COLS.map((id) => formatMl(gramsToMl(grams, id, 'usda'))),
+  }));
+}
+
+/** Density g per mL (3 dp, keeps trailing zeros) for an ingredient and source. */
+export function densityDisplay(id: string, source: 'usda' | 'kingArthur'): string {
+  return roundTo(densityGml(id, source), 3).toFixed(3);
+}
+
+export function gramsToMlDensityRows() {
+  return INGREDIENTS.map((ing) => ({
+    id: ing.id,
+    name: ing.name,
+    density: densityDisplay(ing.id, 'usda'),
+    mlUsda: formatMl(gramsToMl(100, ing.id, 'usda')),
+    mlKa: ing.kaGramsPerCup == null ? '-' : formatMl(gramsToMl(100, ing.id, 'kingArthur')),
+  }));
 }
 
 // ---- Butter amounts (build spec A8.4). Static copy values. ----

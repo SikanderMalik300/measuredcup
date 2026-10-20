@@ -13,6 +13,7 @@ import {
   G_PER_OZ,
   TBSP_PER_CUP,
   TSP_PER_CUP,
+  ML_PER_CUP,
 } from '../data/constants';
 import { formatFraction } from './fraction';
 import { roundTo } from './round';
@@ -22,6 +23,18 @@ import { roundTo } from './round';
 export function gramsToCups(grams: number, ingredientId: string, source: DataSource): number {
   const ing = getIngredient(ingredientId);
   return grams / gramsPerCup(ing, source);
+}
+
+/** Milliliters for a weight of an ingredient: grams / grams-per-cup x mL-per-cup. */
+export function gramsToMl(grams: number, ingredientId: string, source: DataSource): number {
+  const ing = getIngredient(ingredientId);
+  return (grams / gramsPerCup(ing, source)) * ML_PER_CUP;
+}
+
+/** Density in grams per millilitre for an ingredient and source. */
+export function densityGml(ingredientId: string, source: DataSource): number {
+  const ing = getIngredient(ingredientId);
+  return gramsPerCup(ing, source) / ML_PER_CUP;
 }
 
 export function cupsToGrams(cups: number, ingredientId: string, source: DataSource): number {
