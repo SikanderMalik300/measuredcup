@@ -105,7 +105,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Fractions welcome: 2/3 cup, 1 1/2 cups',
-    related: ['/grams-to-cups/', '/tablespoons-in-2-3-cup/', '/cups-in-a-quart/', '/data/ingredient-weights/'],
+    related: ['/grams-to-cups/', '/cups-to-ml/', '/tablespoons-in-2-3-cup/', '/data/ingredient-weights/'],
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'four-cups',
@@ -385,7 +385,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '16 tbsp = 1 cup, with a full chart',
-    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-4-cup/', '/tablespoons-to-grams/', '/cups-to-grams/'],
+    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-4-cup/', '/cups-to-ml/', '/tablespoons-to-grams/'],
     lastUpdated: '2026-10-16',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
     photoId: 'copper-cups-paper',
@@ -509,7 +509,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '4 cups, plus pints, gallons and mL',
-    related: ['/cups-in-a-pint/', '/cups-in-a-gallon/', '/tablespoons-to-cups/', '/cups-to-grams/'],
+    related: ['/cups-in-a-pint/', '/cups-in-a-gallon/', '/ml-to-cups/', '/tablespoons-to-cups/'],
     lastUpdated: '2026-10-17',
     sources: [{ key: 'nist' }, { key: 'usda' }],
     photoId: 'four-cups',
@@ -638,7 +638,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Grams to milliliters for 23 ingredients',
-    related: ['/grams-to-cups/', '/grams-to-tablespoons/', '/cups-to-grams/', '/data/ingredient-weights/'],
+    related: ['/grams-to-cups/', '/ml-to-cups/', '/grams-to-tablespoons/', '/cups-to-grams/'],
     lastUpdated: '2026-10-20',
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'scale-brown-sugar',
@@ -707,6 +707,89 @@ export const PAGES: PageEntry[] = [
       {
         q: 'Is a UK pint bigger than a US pint?',
         a: 'Yes. A UK pint is 568 mL, about 20% more than the US pint of 473 mL.',
+      },
+    ],
+    inSitemap: true,
+  },
+
+  {
+    slug: '/cups-to-ml/',
+    title: 'Cups to mL Converter (US and Metric Cups) | MeasuredCup',
+    metaDescription:
+      '1 US cup is 236.6 mL, a nutrition-label cup is 240 mL and a metric cup is 250 mL. Convert any cup amount to milliliters, with a chart from 1/8 cup to 4 cups.',
+    h1: 'Cups to mL Converter',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: 'US, label and metric cups to mL',
+    related: ['/ml-to-cups/', '/grams-to-ml/', '/cups-in-a-quart/', '/tablespoons-to-cups/'],
+    lastUpdated: '2026-10-21',
+    sources: [{ key: 'nist' }],
+    photoId: 'four-cups',
+    faq: [
+      {
+        q: 'How many mL is 1 cup?',
+        a: '236.6 mL for a US cup. A US nutrition label cup is 240 mL, and a metric cup used in the UK, Australia and Canada is 250 mL.',
+      },
+      {
+        q: 'How many mL is 1/2 cup?',
+        a: '118.3 mL in US cups, or 125 mL with a metric cup.',
+      },
+      {
+        q: 'How many mL is 1/4 cup?',
+        a: '59.1 mL in US cups, or 62.5 mL with a metric cup.',
+      },
+      {
+        q: 'Is a cup 250 mL or 240 mL?',
+        a: 'Neither, in a US recipe: a US cup is 236.6 mL. 240 mL is the rounded cup on US nutrition labels, and 250 mL is the metric cup used in the UK, Australia and Canada.',
+      },
+      {
+        q: 'How many mL is 1 cup of water?',
+        a: '236.6 mL in a US cup, which weighs about 237 g.',
+      },
+      {
+        q: 'How many cups is 1 liter?',
+        a: 'About 4.23 US cups, or exactly 4 metric cups.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/ml-to-cups/',
+    title: 'mL to Cups Converter (US and Metric Cups) | MeasuredCup',
+    metaDescription:
+      'Convert milliliters to cups. 250 mL is 1.06 US cups or exactly 1 metric cup, and 100 mL is about 0.42 US cups. Chart from 30 mL to 1 liter.',
+    h1: 'mL to Cups Converter',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: 'Milliliters to US and metric cups',
+    related: ['/cups-to-ml/', '/grams-to-ml/', '/cups-in-a-quart/', '/tablespoons-to-cups/'],
+    lastUpdated: '2026-10-21',
+    sources: [{ key: 'nist' }],
+    photoId: 'copper-cups-paper',
+    faq: [
+      {
+        q: 'How many cups is 250 mL?',
+        a: '1.06 US cups, or exactly 1 metric cup. In US measures that\'s 1 cup plus about 1 tablespoon.',
+      },
+      {
+        q: 'How many cups is 100 mL?',
+        a: 'About 0.42 US cups, a little less than 1/2 cup. That\'s 6.8 tablespoons.',
+      },
+      {
+        q: 'How many cups is 500 mL?',
+        a: 'About 2.11 US cups, or exactly 2 metric cups.',
+      },
+      {
+        q: 'How many cups is 200 mL of milk?',
+        a: 'About 0.85 US cups, or 0.8 metric cups.',
+      },
+      {
+        q: 'How many mL is a tablespoon?',
+        a: '14.8 mL for a US tablespoon, usually rounded to 15 mL. A teaspoon is 4.9 mL, rounded to 5 mL.',
+      },
+      {
+        q: 'How many cups are in a liter?',
+        a: '4.23 US cups, or 4 metric cups.',
       },
     ],
     inSitemap: true,

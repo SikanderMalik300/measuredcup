@@ -18,6 +18,9 @@ import {
   pintWeightRows,
   gramsToMlRows,
   G2ML_COLS,
+  cupSizesRows,
+  cupsToMlRows,
+  mlToCupsRows,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -548,6 +551,91 @@ export function GramsToMlChart() {
               {r.cells.map((c, i) => (
                 <td key={i} className={tdNum}>{c}</td>
               ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function CupSizesTable() {
+  const rows = cupSizesRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cup sizes compared</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Cup</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>vs US cup</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.vs}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function CupsToMlChart() {
+  const rows = cupsToMlRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cups to mL chart</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Cups</th>
+            <th scope="col" className={thNum}>US cup (mL)</th>
+            <th scope="col" className={thNum}>Label cup (mL)</th>
+            <th scope="col" className={thNum}>Metric cup (mL)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.cups} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.cups}</th>
+              <td className={tdNum}>{r.us}</td>
+              <td className={tdNum}>{r.label}</td>
+              <td className={tdNum}>{r.metric}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function MlToCupsChart() {
+  const rows = mlToCupsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">mL to cups chart</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>US cups</th>
+            <th scope="col" className={th}>Measure with (US)</th>
+            <th scope="col" className={thNum}>Metric cups</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.ml} className={rowLine}>
+              <th scope="row" className={tdNum + ' font-normal'}>{r.ml}</th>
+              <td className={tdNum}>{r.us}</td>
+              <td className={td}>{r.measureWith}</td>
+              <td className={tdNum}>{r.metric}</td>
             </tr>
           ))}
         </tbody>

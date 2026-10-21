@@ -1,7 +1,7 @@
 import { gramsToCups, cupsToGrams, spoonsToGrams, gramsToMl, densityGml } from './convert';
 import { formatGrams, gramsCell, roundTo, trimDecimal } from './round';
 import { formatFraction } from './fraction';
-import { fewestScoops, tbspTspLabel } from './kitchen';
+import { fewestScoops, tbspTspLabel, toKitchenMeasure } from './kitchen';
 import { INGREDIENTS, getIngredient, gramsPerCup } from '../data/ingredients';
 import {
   ML_PER_TSP,
@@ -17,6 +17,9 @@ import {
   ML_PER_DRY_GALLON,
   ML_PER_DRY_PINT,
   ML_PER_IMPERIAL_PINT,
+  ML_PER_LEGAL_CUP,
+  ML_PER_METRIC_CUP,
+  ML_PER_JAPANESE_CUP,
 } from '../data/constants';
 
 /** Format a cup amount for a reference table: kitchen fraction to the nearest 1/8 cup, or
@@ -407,6 +410,64 @@ export function gramsToMlDensityRows() {
     mlUsda: formatMl(gramsToMl(100, ing.id, 'usda')),
     mlKa: ing.kaGramsPerCup == null ? '-' : formatMl(gramsToMl(100, ing.id, 'kingArthur')),
   }));
+}
+
+// ---- Cups and mL (pages /cups-to-ml/ and /ml-to-cups/) ----
+
+export const CUP_TYPES = {
+  us: { label: 'US cup', ml: ML_PER_CUP },
+  label: { label: 'US label cup', ml: ML_PER_LEGAL_CUP },
+  metric: { label: 'Metric cup', ml: ML_PER_METRIC_CUP },
+} as const;
+
+export type CupType = keyof typeof CUP_TYPES;
+
+/** Shared "Cup sizes compared" table. */
+export function cupSizesRows() {
+  const pct = (ml: number) => {
+    const p = roundTo(((ml - ML_PER_CUP) / ML_PER_CUP) * 100, 1);
+    return `${p > 0 ? '+' : ''}${p.toFixed(1)}%`;
+  };
+  return [
+    { name: 'US customary cup', ml: trimDecimal(ML_PER_CUP, 1), vs: '-' },
+    { name: 'US nutrition label cup', ml: trimDecimal(ML_PER_LEGAL_CUP, 1), vs: pct(ML_PER_LEGAL_CUP) },
+    { name: 'Metric cup (UK, AU, NZ, CA)', ml: trimDecimal(ML_PER_METRIC_CUP, 1), vs: pct(ML_PER_METRIC_CUP) },
+    { name: 'Japanese cup', ml: trimDecimal(ML_PER_JAPANESE_CUP, 1), vs: pct(ML_PER_JAPANESE_CUP) },
+  ];
+}
+
+// cups to mL chart
+const CUPS_ML_ROWS = [1 / 8, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 3 / 4, 1, 1.5, 2, 3, 4];
+
+export function cupsToMlRows() {
+  return CUPS_ML_ROWS.map((c) => ({
+    cups: formatFraction(c),
+    us: formatMl(c * ML_PER_CUP),
+    label: formatMl(c * ML_PER_LEGAL_CUP),
+    metric: formatMl(c * ML_PER_METRIC_CUP),
+  }));
+}
+
+// mL to cups chart
+const ML_CUPS_ROWS = [30, 50, 60, 100, 120, 150, 200, 240, 250, 300, 500, 750, 1000];
+
+export function mlToCupsRows() {
+  return ML_CUPS_ROWS.map((ml) => ({
+    ml,
+    us: trimDecimal(ml / ML_PER_CUP, 3),
+    measureWith: toKitchenMeasure(ml / ML_PER_CUP),
+    metric: trimDecimal(ml / ML_PER_METRIC_CUP, 3),
+  }));
+}
+
+/** US tablespoons for a mL amount. */
+export function mlToTbsp(ml: number): string {
+  return trimDecimal(ml / ML_PER_TBSP, 1);
+}
+
+/** US fluid ounces for a mL amount. */
+export function mlToFlOz(ml: number): string {
+  return trimDecimal(ml / ML_PER_FL_OZ, 2);
 }
 
 // ---- Butter amounts (build spec A8.4). Static copy values. ----

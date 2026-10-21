@@ -54,6 +54,8 @@ export default function Page() {
                 ['grams', 'cups', 'Grams to cups', '/grams-to-cups/'],
                 ['grams', 'tablespoons', 'Grams to tablespoons', '/grams-to-tablespoons/'],
                 ['grams', 'milliliters', 'Grams to mL', '/grams-to-ml/'],
+                ['cups', 'milliliters', 'Cups to mL', '/cups-to-ml/'],
+                ['milliliters', 'cups', 'mL to cups', '/ml-to-cups/'],
                 ['cups', 'scale', 'Cups to grams', '/cups-to-grams/'],
                 ['tablespoons', 'measuring cups', 'Tablespoons to cups', '/tablespoons-to-cups/'],
                 ['tablespoons', 'scale', 'Tablespoons to grams', '/tablespoons-to-grams/'],

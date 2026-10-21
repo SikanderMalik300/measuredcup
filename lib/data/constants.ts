@@ -19,6 +19,11 @@ export const ML_PER_TSP = 4.928921594;
 // Source: FDA, 21 CFR 101.9(b)(5)(viii) (accessed 2026-10-14).
 export const ML_PER_LEGAL_CUP = 240;
 
+// Metric cup (UK, Australia, New Zealand, Canada) and the older Japanese cup, for comparison.
+// Source: metric convention; Japanese 1 go/cup = 200 mL (accessed 2026-10-21).
+export const ML_PER_METRIC_CUP = 250;
+export const ML_PER_JAPANESE_CUP = 200;
+
 // US fluid ounce.
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const ML_PER_FL_OZ = 29.5735295625;
