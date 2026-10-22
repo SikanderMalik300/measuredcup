@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { buildMetadata, breadcrumbSchema, datasetSchema, faqSchema } from '@/lib/seo';
+import { buildMetadata, buildPageGraph } from '@/lib/seo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Faq } from '@/components/Faq';
 import { JsonLd } from '@/components/JsonLd';
 import { Sources } from '@/components/Sources';
 import { DownloadCsv } from '@/components/DownloadCsv';
-import { Section, Prose, QuickAnswer } from '@/components/content';
+import { Section, Prose, QuickAnswer, UpdatedLine } from '@/components/content';
 import { DataTable } from '@/components/tables/DataTable';
 import { getPage } from '@/lib/data/pages';
 
@@ -14,15 +14,13 @@ export const metadata: Metadata = buildMetadata(SLUG);
 
 export default function Page() {
   const page = getPage(SLUG);
-  const schema: object[] = [datasetSchema(page), breadcrumbSchema(SLUG)];
-  const faq = faqSchema(page);
-  if (faq) schema.push(faq);
 
   return (
     <div className="mx-auto max-w-container px-4 py-8 md:px-10">
-      <JsonLd data={schema} />
+      <JsonLd data={buildPageGraph(SLUG)} />
       <Breadcrumbs slug={SLUG} />
       <h1 className="mt-4">{page.h1}</h1>
+      <UpdatedLine date={page.lastUpdated} />
 
       <QuickAnswer>
         Most baking ingredients weigh within 5% of each other in USDA and King Arthur data, but bread
@@ -73,15 +71,15 @@ export default function Page() {
         </Prose>
       </Section>
 
+      <Section>
+        <Sources sources={page.sources} />
+      </Section>
+
       {page.faq && (
         <Section>
           <Faq items={page.faq} />
         </Section>
       )}
-
-      <Section>
-        <Sources sources={page.sources} />
-      </Section>
     </div>
   );
 }

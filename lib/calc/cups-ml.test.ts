@@ -54,10 +54,12 @@ describe('mL to cups chart VERIFY', () => {
   for (const [ml, [us, metric]] of Object.entries(expected)) {
     it(`${ml} mL`, () => expect(byMl[Number(ml)]).toMatchObject({ us, metric }));
   }
-  it('measureWith comes from toKitchenMeasure', () => {
+  it('measureWith comes from toKitchenMeasure (F7 single-fraction sub-tsp)', () => {
     expect(byMl[250].measureWith).toBe(toKitchenMeasure(250 / ML_PER_CUP));
     expect(byMl[200].measureWith).toBe('3/4 cup + 1 tbsp + 1 1/2 tsp');
     expect(byMl[30].measureWith).toBe('about 2 tbsp + a pinch');
+    expect(byMl[240].measureWith).toBe('1 cup + 3/4 tsp');
+    expect(byMl[300].measureWith).toBe('1 1/4 cups + 3/4 tsp');
   });
 });
 

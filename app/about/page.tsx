@@ -8,7 +8,7 @@ export const metadata: Metadata = buildMetadata(SLUG);
 
 export default function Page() {
   return (
-    <TrustFrame slug={SLUG}>
+    <TrustFrame slug={SLUG} showUpdated>
       <p>
         MeasuredCup is a set of free kitchen converters for people who bake from recipes written in a
         different system than their kitchen. I&apos;m Sikander Malik, a web developer, and I built it

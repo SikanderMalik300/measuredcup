@@ -8,7 +8,7 @@ export const metadata: Metadata = buildMetadata(SLUG);
 
 export default function Page() {
   return (
-    <TrustFrame slug={SLUG}>
+    <TrustFrame slug={SLUG} showUpdated>
       <p>
         <strong className="font-medium">Who writes:</strong> Sikander Malik writes and edits every
         page.

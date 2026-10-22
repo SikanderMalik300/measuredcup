@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { buildMetadata } from '@/lib/seo';
+import { buildMetadata, buildPageGraph } from '@/lib/seo';
+import { JsonLd } from '@/components/JsonLd';
 import { PhotoTile } from '@/components/PhotoTile';
 import { AnswerCard } from '@/components/AnswerCard';
 import { Picture } from '@/components/Picture';
@@ -39,6 +40,7 @@ export default function Home() {
 
   return (
     <div>
+      <JsonLd data={buildPageGraph(SLUG)} />
       {/* Hero */}
       <section className="w-full">
         <div className="mx-auto grid max-w-container grid-cols-1 items-stretch md:grid-cols-[55%_45%]">

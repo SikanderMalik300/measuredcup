@@ -95,9 +95,11 @@ describe('toKitchenMeasure', () => {
     [1 / 48, '1 tsp'],
     [0.5 / 48, '1/2 tsp'],
     [0.25 / 48, '1/4 tsp'],
-    [0.375 / 48, '1/4 tsp + 1/8 tsp'],
-    [1 / 3 / 48, 'about 1/4 tsp + a pinch'],
-    [1 / 6 / 48, 'about 1/8 tsp + a pinch'],
+    [0.375 / 48, '3/8 tsp'],
+    [0.75 / 48, '3/4 tsp'],
+    [0.625 / 48, '5/8 tsp'],
+    [1 / 3 / 48, 'about 1/3 tsp'],
+    [1 / 6 / 48, 'about 1/8 tsp'],
   ];
   for (const [cups, expected] of cases) {
     it(`${cups} cups -> ${expected}`, () => {

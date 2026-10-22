@@ -1,6 +1,23 @@
 import type { Metadata } from 'next';
-import { SITE_NAME, SITE_URL, ORG_LOGO, SITE_EMAIL, AUTHOR } from './data/site';
-import { CATEGORIES, findPage, type PageEntry } from './data/pages';
+import {
+  SITE_NAME,
+  SITE_URL,
+  ORG_LOGO,
+  ORG_ID,
+  ORG_SAMEAS,
+  WEBSITE_ID,
+  SITE_EMAIL,
+  AUTHOR,
+} from './data/site';
+import { CATEGORIES, findPage, getPage, type PageEntry } from './data/pages';
+
+const AUTHOR_SLUG = '/authors/sikander-malik/';
+const DATA_SLUG = '/data/ingredient-weights/';
+
+/** Page title without the " | MeasuredCup" suffix, for schema names. */
+function pageName(title: string): string {
+  return title.replace(/\s*\|\s*MeasuredCup$/, '');
+}
 
 export function ogImagePath(slug: string): string {
   const name = slug === '/' ? 'home' : slug.replace(/^\//, '').replace(/\/$/, '').replace(/\//g, '-');
@@ -64,12 +81,13 @@ export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': ORG_ID,
     name: SITE_NAME,
     url: SITE_URL,
     logo: ORG_LOGO,
     email: SITE_EMAIL,
     founder: { '@id': AUTHOR.id },
-    sameAs: [] as string[],
+    sameAs: ORG_SAMEAS,
   };
 }
 
@@ -77,8 +95,24 @@ export function websiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': WEBSITE_ID,
     name: SITE_NAME,
     url: SITE_URL,
+  };
+}
+
+/** Full Person node for the author (emitted on the author page). */
+export function personSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': AUTHOR.id,
+    name: AUTHOR.name,
+    url: AUTHOR.url,
+    jobTitle: AUTHOR.jobTitle,
+    image: AUTHOR.image,
+    sameAs: [AUTHOR.linkedin],
+    worksFor: { '@id': ORG_ID },
   };
 }
 
@@ -113,6 +147,7 @@ export function webApplicationSchema(page: PageEntry) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
+    '@id': canonical(page.slug) + '#app',
     name: page.h1,
     url: canonical(page.slug),
     applicationCategory: 'UtilityApplication',
@@ -122,25 +157,18 @@ export function webApplicationSchema(page: PageEntry) {
   };
 }
 
-export function collectionPageSchema(page: PageEntry) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: page.h1,
-    url: canonical(page.slug),
-    description: page.metaDescription,
-  };
-}
-
 export function datasetSchema(page: PageEntry) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
+    '@id': canonical(page.slug) + '#dataset',
     name: 'Ingredient weights per cup: USDA vs King Arthur',
     description: page.metaDescription,
-    creator: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    creator: { '@id': ORG_ID },
     license: 'https://creativecommons.org/licenses/by/4.0/',
     isBasedOn: 'https://fdc.nal.usda.gov/download-datasets/',
+    datePublished: page.datePublished,
+    dateModified: page.lastUpdated,
     distribution: [
       {
         '@type': 'DataDownload',
@@ -151,16 +179,43 @@ export function datasetSchema(page: PageEntry) {
   };
 }
 
-export function profilePageSchema() {
-  return {
+/**
+ * One page node per page: ProfilePage on the author page, CollectionPage on hubs, WebPage elsewhere.
+ * Carries author, publisher, datePublished and dateModified (build spec addendum F1).
+ */
+export function pageNode(page: PageEntry) {
+  const url = canonical(page.slug);
+  const type =
+    page.slug === AUTHOR_SLUG ? 'ProfilePage' : page.kind === 'hub' ? 'CollectionPage' : 'WebPage';
+  const node: Record<string, unknown> = {
     '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    mainEntity: {
-      '@type': 'Person',
-      '@id': AUTHOR.id,
-      name: AUTHOR.name,
-      url: AUTHOR.url,
-      jobTitle: AUTHOR.jobTitle,
-    },
+    '@type': type,
+    '@id': url + '#webpage',
+    url,
+    name: pageName(page.title),
+    description: page.metaDescription,
+    inLanguage: 'en-US',
+    isPartOf: { '@id': WEBSITE_ID },
+    author: { '@id': AUTHOR.id },
+    publisher: { '@id': ORG_ID },
+    datePublished: page.datePublished,
+    dateModified: page.lastUpdated,
   };
+  if (page.kind === 'tool') node.mainEntity = { '@id': url + '#app' };
+  else if (page.slug === DATA_SLUG) node.mainEntity = { '@id': url + '#dataset' };
+  else if (type === 'ProfilePage') node.mainEntity = { '@id': AUTHOR.id };
+  return node;
+}
+
+/** The full JSON-LD graph for a page: page node + its main entity + breadcrumb + FAQ (+ Person on author). */
+export function buildPageGraph(slug: string): object[] {
+  const page = getPage(slug);
+  const nodes: object[] = [pageNode(page)];
+  if (page.kind === 'tool') nodes.push(webApplicationSchema(page));
+  if (slug === DATA_SLUG) nodes.push(datasetSchema(page));
+  if (slug === AUTHOR_SLUG) nodes.push(personSchema());
+  if (slug !== '/') nodes.push(breadcrumbSchema(slug));
+  const faq = faqSchema(page);
+  if (faq) nodes.push(faq);
+  return nodes;
 }

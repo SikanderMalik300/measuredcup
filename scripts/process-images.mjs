@@ -78,9 +78,33 @@ async function emit(srcBuf, meta, photo, width, aspect, report, maxKb) {
   return avifKb;
 }
 
+async function processAuthorPhoto() {
+  const src = path.join(ROOT, 'public', 'sikander-malik-author.png');
+  if (!fs.existsSync(src)) {
+    console.log('author photo source missing, skipping');
+    return;
+  }
+  const buf = fs.readFileSync(src);
+  const meta = await sharp(buf).metadata();
+  const side = Math.min(meta.width, meta.height);
+  const left = Math.round((meta.width - side) / 2);
+  const top = Math.round((meta.height - side) / 2);
+  const square = sharp(buf).extract({ left, top, width: side, height: side }); // centered square
+  for (const w of [96, 192]) {
+    const base = square.clone().resize(w, w, { fit: 'cover' });
+    await base.clone().avif({ quality: 70 }).toFile(path.join(OUT, `sikander-malik-${w}.avif`));
+    await base.clone().webp({ quality: 80 }).toFile(path.join(OUT, `sikander-malik-${w}.webp`));
+    await base.clone().jpeg({ quality: 82, mozjpeg: true }).toFile(path.join(OUT, `sikander-malik-${w}.jpg`));
+  }
+  await square.clone().resize(400, 400, { fit: 'cover' }).jpeg({ quality: 85, mozjpeg: true })
+    .toFile(path.join(OUT, 'sikander-malik-400.jpg'));
+  console.log('author photo: sikander-malik-96/192 (avif/webp/jpg) + -400.jpg');
+}
+
 async function main() {
   const report = [];
   const warnings = [];
+  await processAuthorPhoto();
   for (const photo of PHOTOS) {
     const orig = path.join(CACHE, `${photo.file}.orig`);
     const buf = await download(photo.url, orig);

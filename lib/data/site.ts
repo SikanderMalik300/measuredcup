@@ -10,9 +10,14 @@ export const AUTHOR = {
   id: `${SITE_URL}/authors/sikander-malik/#person`,
   url: `${SITE_URL}/authors/sikander-malik/`,
   jobTitle: 'Founder and tool builder',
+  image: `${SITE_URL}/photos/sikander-malik-400.jpg`,
+  linkedin: 'https://www.linkedin.com/in/sikandermalikdev',
 };
 
 export const ORG_LOGO = `${SITE_URL}/logo-512.png`;
+export const ORG_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const ORG_SAMEAS = ['https://www.pinterest.com/measuredcup/'];
 
 // Shared disclaimer line shown on every tool page (build spec A5 item 14).
 export const DISCLAIMER =

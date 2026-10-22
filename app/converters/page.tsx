@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { buildMetadata, breadcrumbSchema, collectionPageSchema, faqSchema } from '@/lib/seo';
+import { buildMetadata, buildPageGraph } from '@/lib/seo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Faq } from '@/components/Faq';
 import { JsonLd } from '@/components/JsonLd';
 import { PhotoTile } from '@/components/PhotoTile';
-import { Section, Prose } from '@/components/content';
+import { Section, Prose, UpdatedLine } from '@/components/content';
 import { getPage, pagesInCategory } from '@/lib/data/pages';
 import { TableWrap } from '@/components/tables/Tables';
 
@@ -15,15 +15,13 @@ export const metadata: Metadata = buildMetadata(SLUG);
 export default function Page() {
   const page = getPage(SLUG);
   const tools = pagesInCategory('converters');
-  const schema: object[] = [collectionPageSchema(page), breadcrumbSchema(SLUG)];
-  const faq = faqSchema(page);
-  if (faq) schema.push(faq);
 
   return (
     <div className="mx-auto max-w-container px-4 py-8 md:px-10">
-      <JsonLd data={schema} />
+      <JsonLd data={buildPageGraph(SLUG)} />
       <Breadcrumbs slug={SLUG} />
       <h1 className="mt-4">{page.h1}</h1>
+      <UpdatedLine date={page.lastUpdated} />
       <Prose>
         <p className="mt-4">
           These converters turn grams into cups and back again, one ingredient at a time. The reason
@@ -42,6 +40,7 @@ export default function Page() {
       <Section title="Which tool do I need?" id="which">
         <TableWrap>
           <table className="w-full border-collapse">
+            <caption className="pb-2 text-left text-small text-muted">Which tool do I need?</caption>
             <thead>
               <tr className="border-b border-line">
                 <th scope="col" className="px-3 py-2 text-left text-small font-medium text-muted">Recipe says</th>

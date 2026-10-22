@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { PAGES } from '@/lib/data/pages';
-import { faqSchema } from '@/lib/seo';
+import { faqSchema, buildPageGraph } from '@/lib/seo';
 
 // Build spec A13 banned words and phrases, and the no-em-dash / no-exclamation rules.
 const BANNED_WORDS = [
@@ -67,11 +67,48 @@ describe('writing rules (A13)', () => {
   });
 });
 
-describe('registry titles fit in a search result', () => {
-  it('every title is 60 characters or less', () => {
-    const tooLong = PAGES.filter((p) => p.title.length > 60).map((p) => `${p.slug} (${p.title.length})`);
-    expect(tooLong).toEqual([]);
+describe('registry titles and descriptions (addendum F5)', () => {
+  it('every title is 30-60 characters', () => {
+    const bad = PAGES.filter((p) => p.title.length < 30 || p.title.length > 60).map(
+      (p) => `${p.slug} (${p.title.length})`,
+    );
+    expect(bad).toEqual([]);
   });
+  it('every description is 110-160 characters', () => {
+    const bad = PAGES.filter(
+      (p) => p.metaDescription.length < 110 || p.metaDescription.length > 160,
+    ).map((p) => `${p.slug} (${p.metaDescription.length})`);
+    expect(bad).toEqual([]);
+  });
+  it('no duplicate titles or descriptions', () => {
+    expect(new Set(PAGES.map((p) => p.title)).size).toBe(PAGES.length);
+    expect(new Set(PAGES.map((p) => p.metaDescription)).size).toBe(PAGES.length);
+  });
+});
+
+describe('page dates (addendum F1)', () => {
+  it('every entry has datePublished <= lastUpdated', () => {
+    const bad = PAGES.filter((p) => !p.datePublished || p.datePublished > p.lastUpdated).map(
+      (p) => `${p.slug} (${p.datePublished} > ${p.lastUpdated})`,
+    );
+    expect(bad).toEqual([]);
+  });
+});
+
+describe('page JSON-LD graph (addendum F1)', () => {
+  const PAGE_TYPES = ['WebPage', 'ProfilePage', 'CollectionPage'];
+  for (const p of PAGES) {
+    it(`${p.slug} has exactly one page node with author and dates`, () => {
+      const graph = buildPageGraph(p.slug) as Record<string, unknown>[];
+      const pageNodes = graph.filter((n) => PAGE_TYPES.includes(n['@type'] as string));
+      expect(pageNodes).toHaveLength(1);
+      const node = pageNodes[0];
+      expect(node.author).toBeTruthy();
+      expect(node.datePublished).toBe(p.datePublished);
+      expect(node.dateModified).toBe(p.lastUpdated);
+      expect(node.publisher).toBeTruthy();
+    });
+  }
 });
 
 describe('FAQ JSON-LD equals visible FAQ text (A12)', () => {

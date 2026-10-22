@@ -138,11 +138,11 @@ export function scaleLine(line: string, factor: number): ScaledLine {
 
   switch (unit) {
     case 'cups':
-      return { original, scaled: withName(toKitchenMeasure(scaledAmount)), notScaled: false };
+      return { original, scaled: withName(toKitchenMeasure(scaledAmount, true)), notScaled: false };
     case 'tbsp':
-      return { original, scaled: withName(toKitchenMeasure(scaledAmount / 16)), notScaled: false };
+      return { original, scaled: withName(toKitchenMeasure(scaledAmount / 16, true)), notScaled: false };
     case 'tsp':
-      return { original, scaled: withName(toKitchenMeasure(scaledAmount / 48)), notScaled: false };
+      return { original, scaled: withName(toKitchenMeasure(scaledAmount / 48, true)), notScaled: false };
     case 'eggs': {
       const rounded = Math.round(scaledAmount * 2) / 2;
       const whole = Number.isInteger(rounded);

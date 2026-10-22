@@ -19,18 +19,19 @@ const QUARTER_LABELS: Record<number, string> = { 0: '', 12: '1/4', 24: '1/2', 36
  *  - For amounts under 1/4 cup, "about" is prefixed when the exact value is not a whole multiple of
  *    1/8 tsp. For larger amounts, "about" is prefixed only when a leftover is folded into a cup
  *    fraction (e.g. oats at 1.23 cups -> "about 1 1/4 cups").
- *  - Sub-teaspoon remainders are built from 1/2, 1/4 and 1/8 tsp spoons, with "a pinch" for the rest.
+ *  - A sub-teaspoon leftover reads as one kitchen fraction ("3/4 tsp"), with "a pinch" under 1/8 tsp.
+ *    Pass spoonSplit = true (the recipe scaler) to spell out the real spoons instead ("1/2 tsp + 1/4 tsp").
  *
  * Example: 1.6 cups -> "1 1/2 cups + 1 tbsp + 1 3/4 tsp".
  */
-export function toKitchenMeasure(cups: number): string {
+export function toKitchenMeasure(cups: number, spoonSplit = false): string {
   const totalTsp = cups * TSP_PER_CUP;
   if (totalTsp <= EPS) return '0';
 
   if (totalTsp < TSP_PER_CUP / 4 - EPS) {
     // Under 1/4 cup: tablespoons and teaspoons only.
     const approx = !isEighthMultiple(totalTsp);
-    const body = formatTbspTsp(totalTsp, false);
+    const body = formatTbspTsp(totalTsp, false, spoonSplit);
     return (approx ? 'about ' : '') + body;
   }
 
@@ -77,7 +78,7 @@ export function toKitchenMeasure(cups: number): string {
 
   if (leftoverTsp > EPS) {
     // Round leftover to 1/4 tsp (we are at 1/4 cup or more).
-    const body = formatTbspTsp(leftoverTsp, true);
+    const body = formatTbspTsp(leftoverTsp, true, spoonSplit);
     if (body && body !== '0') parts.push(body);
   }
 
@@ -103,7 +104,7 @@ function labelToValue(label: string): number {
 }
 
 /** Build "N tbsp + X tsp" from a teaspoon amount under one cup. */
-function formatTbspTsp(tsp: number, quarterStep: boolean): string {
+function formatTbspTsp(tsp: number, quarterStep: boolean, spoonSplit: boolean): string {
   let tbsp = Math.floor((tsp + EPS) / TSP_PER_TBSP);
   let remTsp = tsp - tbsp * TSP_PER_TBSP;
 
@@ -117,7 +118,7 @@ function formatTbspTsp(tsp: number, quarterStep: boolean): string {
 
   const parts: string[] = [];
   if (tbsp > 0) parts.push(`${tbsp} tbsp`);
-  const tspPiece = formatTspPiece(remTsp);
+  const tspPiece = formatTspPiece(remTsp, spoonSplit);
   if (tspPiece) parts.push(tspPiece);
   if (parts.length === 0) return '0';
   return parts.join(' + ');
@@ -235,7 +236,7 @@ function formatScoops(wholeCups: number, opt: ScoopOption): string {
   return opt.isExact ? out : `about ${out}`;
 }
 
-function formatTspPiece(tsp: number): string {
+function formatTspPiece(tsp: number, spoonSplit: boolean): string {
   if (tsp <= EPS) return '';
 
   if (tsp >= 1 - EPS) {
@@ -243,20 +244,26 @@ function formatTspPiece(tsp: number): string {
     return `${formatFraction(tsp)} tsp`;
   }
 
-  // Sub-teaspoon: build from 1/2, 1/4, 1/8 tsp spoons, then "a pinch".
-  const spoons: { value: number; label: string }[] = [
-    { value: 1 / 2, label: '1/2' },
-    { value: 1 / 4, label: '1/4' },
-    { value: 1 / 8, label: '1/8' },
-  ];
-  let remaining = tsp;
-  const labels: string[] = [];
-  for (const spoon of spoons) {
-    if (remaining >= spoon.value - 1e-6) {
-      labels.push(`${spoon.label} tsp`);
-      remaining -= spoon.value;
+  if (spoonSplit) {
+    // Spell out real spoons: 1/2, 1/4, 1/8 tsp, then "a pinch" (recipe scaler only).
+    const spoons: { value: number; label: string }[] = [
+      { value: 1 / 2, label: '1/2' },
+      { value: 1 / 4, label: '1/4' },
+      { value: 1 / 8, label: '1/8' },
+    ];
+    let remaining = tsp;
+    const labels: string[] = [];
+    for (const spoon of spoons) {
+      if (remaining >= spoon.value - 1e-6) {
+        labels.push(`${spoon.label} tsp`);
+        remaining -= spoon.value;
+      }
     }
+    if (remaining > 1e-6) labels.push('a pinch');
+    return labels.join(' + ');
   }
-  if (remaining > 1e-6) labels.push('a pinch');
-  return labels.join(' + ');
+
+  // One kitchen fraction, or "a pinch" under 1/8 tsp.
+  if (tsp < 1 / 8 - 1e-6) return 'a pinch';
+  return `${formatFraction(tsp)} tsp`;
 }

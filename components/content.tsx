@@ -10,11 +10,21 @@ import { JsonLd } from './JsonLd';
 import { DISCLAIMER } from '@/lib/data/site';
 import { getPage, findPage, type PageEntry } from '@/lib/data/pages';
 import { findPhoto } from '@/lib/data/photos';
-import {
-  breadcrumbSchema,
-  faqSchema,
-  webApplicationSchema,
-} from '@/lib/seo';
+import { buildPageGraph } from '@/lib/seo';
+
+export function formatDate(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number);
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  return `${months[m - 1]} ${d}, ${y}`;
+}
+
+/** Visible "Last updated" line for content pages that have no author box (build spec addendum F4). */
+export function UpdatedLine({ date }: { date: string }) {
+  return <p className="mt-2 text-small text-muted">Last updated {formatDate(date)}</p>;
+}
 
 export function Section({
   title,
@@ -130,16 +140,10 @@ export function ToolPageFrame({
   children: React.ReactNode;
 }) {
   const page = getPage(slug);
-  const schema: object[] = [
-    webApplicationSchema(page),
-    breadcrumbSchema(slug),
-  ];
-  const faq = faqSchema(page);
-  if (faq) schema.push(faq);
 
   return (
     <div className="mx-auto max-w-container px-4 py-8 md:px-10">
-      <JsonLd data={schema} />
+      <JsonLd data={buildPageGraph(slug)} />
       <Breadcrumbs slug={slug} />
       <div className="mt-4 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,760px)_300px]">
         <article>

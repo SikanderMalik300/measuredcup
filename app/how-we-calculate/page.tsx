@@ -22,7 +22,7 @@ const CONSTANTS: [string, string, string][] = [
 export default function Page() {
   const page = getPage(SLUG);
   return (
-    <TrustFrame slug={SLUG}>
+    <TrustFrame slug={SLUG} showUpdated>
       <h2>Units we use</h2>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">

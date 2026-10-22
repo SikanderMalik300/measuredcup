@@ -58,6 +58,16 @@ export function Footer() {
             </a>
           </p>
           <p>Values are averages for typical US products.</p>
+          <p>
+            <a
+              href="https://www.pinterest.com/measuredcup/"
+              rel="me noopener"
+              target="_blank"
+              className="hover:text-brand"
+            >
+              Pinterest
+            </a>
+          </p>
         </div>
       </div>
     </footer>
