@@ -4,6 +4,7 @@ import { useId, useState } from 'react';
 import { Copy, Share2, Printer, Check } from 'lucide-react';
 import { track } from '@/lib/analytics';
 import { INGREDIENT_GROUPS, INGREDIENTS } from '@/lib/data/ingredients';
+import { useEmbed } from './embed-context';
 
 export function Field({
   label,
@@ -136,6 +137,7 @@ export function ResultCard({
   const [showMath, setShowMath] = useState(false);
   const [copied, setCopied] = useState(false);
   const mathId = useId();
+  const embed = useEmbed();
 
   const copy = async (text: string, event: 'copy_result' | 'share_link') => {
     try {
@@ -145,7 +147,7 @@ export function ResultCard({
     } catch {
       /* clipboard unavailable */
     }
-    track(event, { tool: toolName, ingredient: ingredientForEvent });
+    if (!embed) track(event, { tool: toolName, ingredient: ingredientForEvent });
   };
 
   const shareUrl = () => {
@@ -182,21 +184,25 @@ export function ResultCard({
           {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
           Copy
         </button>
-        <button type="button" className="btn-secondary" onClick={() => copy(shareUrl(), 'share_link')}>
-          <Share2 size={16} strokeWidth={1.5} />
-          Share
-        </button>
-        <button
-          type="button"
-          className="btn-secondary"
-          onClick={() => {
-            track('print', { tool: toolName });
-            window.print();
-          }}
-        >
-          <Printer size={16} strokeWidth={1.5} />
-          Print
-        </button>
+        {!embed && (
+          <>
+            <button type="button" className="btn-secondary" onClick={() => copy(shareUrl(), 'share_link')}>
+              <Share2 size={16} strokeWidth={1.5} />
+              Share
+            </button>
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                track('print', { tool: toolName });
+                window.print();
+              }}
+            >
+              <Printer size={16} strokeWidth={1.5} />
+              Print
+            </button>
+          </>
+        )}
       </div>
 
       {math && showMath && (

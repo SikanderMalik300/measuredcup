@@ -11,6 +11,7 @@ import {
   ToolPageFrame,
 } from '@/components/content';
 import { AdSlot } from '@/components/AdSlot';
+import { EmbedBox } from '@/components/embed/EmbedBox';
 import { RecipeScalerTool } from '@/components/tools/RecipeScalerTool';
 import { getPage } from '@/lib/data/pages';
 
@@ -71,6 +72,8 @@ export default function Page() {
           </p>
         </Prose>
       </Section>
+
+      <EmbedBox slug={SLUG} />
 
       <div className="mt-10">
         <AdSlot position="content" />

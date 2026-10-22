@@ -86,6 +86,15 @@ export default function Page() {
             <PhotoTile key={t.slug} href={t.slug} name={t.h1} line={t.tileLine} photoId={t.photoId} />
           ))}
         </div>
+        <Prose>
+          <p className="mt-6">
+            Run a recipe blog?{' '}
+            <Link href="/free-kitchen-calculators-for-your-site/" prefetch={false} className="link">
+              Add these calculators to your own site
+            </Link>{' '}
+            for free, with a credit link back here.
+          </p>
+        </Prose>
       </Section>
 
       {page.faq && (

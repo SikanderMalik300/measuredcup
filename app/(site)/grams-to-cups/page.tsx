@@ -11,6 +11,7 @@ import {
   ToolPageFrame,
 } from '@/components/content';
 import { AdSlot } from '@/components/AdSlot';
+import { EmbedBox } from '@/components/embed/EmbedBox';
 import { GramsToCupsTool } from '@/components/tools/GramsToCupsTool';
 import { ComparisonTable, GramAmountsTable } from '@/components/tables/Tables';
 import { getPage } from '@/lib/data/pages';
@@ -74,6 +75,8 @@ export default function Page() {
           </p>
         </Prose>
       </Section>
+
+      <EmbedBox slug={SLUG} />
 
       <Section title="Reference tables" id="tables">
         <div className="space-y-8">

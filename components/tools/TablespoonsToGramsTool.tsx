@@ -6,17 +6,20 @@ import { spoonsToGrams, type SpoonUnit } from '@/lib/calc/convert';
 import { parseAmount } from '@/lib/calc/fraction';
 import { formatGrams, roundTo } from '@/lib/calc/round';
 import { track } from '@/lib/analytics';
+import { useEmbed } from './embed-context';
 import { Field, TextInput, IngredientSelect, SegmentedSource, ResultCard, type SourceValue } from './ui';
 
 const STORAGE_KEY = 'mc-ingredient';
 
 export function TablespoonsToGramsTool() {
+  const embed = useEmbed();
   const [amountText, setAmountText] = useState('3');
   const [unit, setUnit] = useState<SpoonUnit>('tablespoons');
   const [ingredientId, setIngredientId] = useState('butter');
   const [source, setSource] = useState<SourceValue>('usda');
 
   useEffect(() => {
+    if (embed) return;
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved && saved !== ingredientId) setIngredientId(saved);
@@ -28,6 +31,7 @@ export function TablespoonsToGramsTool() {
 
   const onIngredient = (id: string) => {
     setIngredientId(id);
+    if (embed) return;
     try {
       localStorage.setItem(STORAGE_KEY, id);
     } catch {
@@ -39,11 +43,12 @@ export function TablespoonsToGramsTool() {
   const amount = useMemo(() => parseAmount(amountText), [amountText]);
 
   useEffect(() => {
+    if (embed) return;
     const t = setTimeout(() => {
       if (amount != null) track('tool_used', { tool: 'tablespoons-to-grams', ingredient: ingredientId });
     }, 150);
     return () => clearTimeout(t);
-  }, [amount, unit, ingredientId, source]);
+  }, [amount, unit, ingredientId, source, embed]);
 
   const inputs = (children: React.ReactNode) => (
     <div className="card p-4 shadow-panel md:p-6">

@@ -11,6 +11,7 @@ import {
   ToolPageFrame,
 } from '@/components/content';
 import { AdSlot } from '@/components/AdSlot';
+import { EmbedBox } from '@/components/embed/EmbedBox';
 import { ButterConverterTool } from '@/components/tools/ButterConverterTool';
 import { ButterTable } from '@/components/tables/Tables';
 import { getPage } from '@/lib/data/pages';
@@ -67,6 +68,8 @@ export default function Page() {
           </p>
         </Prose>
       </Section>
+
+      <EmbedBox slug={SLUG} />
 
       <Section title="Reference table" id="tables">
         <ButterTable />

@@ -9,6 +9,7 @@ const TOOLS = [
   { href: '/half-a-measurement/', label: 'Half a measurement' },
   { href: '/recipe-scaler/', label: 'Recipe scaler' },
   { href: '/data/ingredient-weights/', label: 'Ingredient weights' },
+  { href: '/free-kitchen-calculators-for-your-site/', label: 'Calculators for your site' },
 ];
 const TRUST = [
   { href: '/about/', label: 'About' },

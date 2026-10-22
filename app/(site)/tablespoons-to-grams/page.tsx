@@ -11,6 +11,7 @@ import {
   ToolPageFrame,
 } from '@/components/content';
 import { AdSlot } from '@/components/AdSlot';
+import { EmbedBox } from '@/components/embed/EmbedBox';
 import { TablespoonsToGramsTool } from '@/components/tools/TablespoonsToGramsTool';
 import { SpoonGramsTable } from '@/components/tables/Tables';
 import { getPage } from '@/lib/data/pages';
@@ -68,6 +69,8 @@ export default function Page() {
           </p>
         </Prose>
       </Section>
+
+      <EmbedBox slug={SLUG} />
 
       <Section title="Reference table" id="tables">
         <SpoonGramsTable />

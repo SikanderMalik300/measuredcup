@@ -7,7 +7,8 @@ type EventName =
   | 'share_link'
   | 'print'
   | 'csv_download'
-  | 'outbound_click';
+  | 'outbound_click'
+  | 'embed_copy';
 
 declare global {
   interface Window {

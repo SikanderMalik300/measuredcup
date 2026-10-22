@@ -6,6 +6,7 @@ import { gramsToCups, formatCupsDecimal } from '@/lib/calc/convert';
 import { toKitchenMeasure } from '@/lib/calc/kitchen';
 import { formatFraction } from '@/lib/calc/fraction';
 import { track } from '@/lib/analytics';
+import { useEmbed } from './embed-context';
 import { Field, TextInput, IngredientSelect, SegmentedSource, ResultCard, type SourceValue } from './ui';
 
 const STORAGE_KEY = 'mc-ingredient';
@@ -15,11 +16,13 @@ function cupsWord(cups: number) {
 }
 
 export function GramsToCupsTool() {
+  const embed = useEmbed();
   const [grams, setGrams] = useState('200');
   const [ingredientId, setIngredientId] = useState('ap-flour');
   const [source, setSource] = useState<SourceValue>('usda');
 
   useEffect(() => {
+    if (embed) return;
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved && saved !== ingredientId) setIngredientId(saved);
@@ -31,6 +34,7 @@ export function GramsToCupsTool() {
 
   const onIngredient = (id: string) => {
     setIngredientId(id);
+    if (embed) return;
     try {
       localStorage.setItem(STORAGE_KEY, id);
     } catch {
@@ -45,11 +49,12 @@ export function GramsToCupsTool() {
   }, [grams]);
 
   useEffect(() => {
+    if (embed) return;
     const t = setTimeout(() => {
       if (g != null) track('tool_used', { tool: 'grams-to-cups', ingredient: ingredientId });
     }, 150);
     return () => clearTimeout(t);
-  }, [g, ingredientId, source]);
+  }, [g, ingredientId, source, embed]);
 
   if (g == null) {
     return (

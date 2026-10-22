@@ -1,11 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { JsonLd } from '@/components/JsonLd';
-import { Analytics } from '@/components/Analytics';
-import { organizationSchema, websiteSchema } from '@/lib/seo';
 import { SITE_NAME, SITE_URL, SITE_TAGLINE } from '@/lib/data/site';
 
 const figtree = localFont({
@@ -37,19 +32,11 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Bare root: the site chrome lives in app/(site)/layout.tsx; embed pages in app/embed/ stay minimal.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={figtree.variable}>
-      <body>
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <Analytics />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

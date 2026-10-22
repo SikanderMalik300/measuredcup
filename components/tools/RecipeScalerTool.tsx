@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Copy, Printer, Check } from 'lucide-react';
 import { scaleRecipe, scaleFactor } from '@/lib/calc/scale';
 import { track } from '@/lib/analytics';
+import { useEmbed } from './embed-context';
 import { Field, TextInput } from './ui';
 
 const DEFAULT_LIST = `2 cups all-purpose flour
@@ -14,6 +15,7 @@ const DEFAULT_LIST = `2 cups all-purpose flour
 1/4 tsp salt`;
 
 export function RecipeScalerTool() {
+  const embed = useEmbed();
   const [original, setOriginal] = useState('4');
   const [next, setNext] = useState('6');
   const [list, setList] = useState(DEFAULT_LIST);
@@ -29,9 +31,10 @@ export function RecipeScalerTool() {
   const results = useMemo(() => scaleRecipe(list, factor), [list, factor]);
 
   useEffect(() => {
+    if (embed) return;
     const t = setTimeout(() => track('tool_used', { tool: 'recipe-scaler' }), 150);
     return () => clearTimeout(t);
-  }, [factor, list]);
+  }, [factor, list, embed]);
 
   const copyText = results
     .filter((r) => r.original.trim() !== '')
@@ -46,7 +49,7 @@ export function RecipeScalerTool() {
     } catch {
       /* ignore */
     }
-    track('copy_result', { tool: 'recipe-scaler' });
+    if (!embed) track('copy_result', { tool: 'recipe-scaler' });
   };
 
   return (
@@ -97,17 +100,19 @@ export function RecipeScalerTool() {
             {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
             Copy
           </button>
-          <button
-            type="button"
-            className="btn-secondary"
-            onClick={() => {
-              track('print', { tool: 'recipe-scaler' });
-              window.print();
-            }}
-          >
-            <Printer size={16} strokeWidth={1.5} />
-            Print
-          </button>
+          {!embed && (
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                track('print', { tool: 'recipe-scaler' });
+                window.print();
+              }}
+            >
+              <Printer size={16} strokeWidth={1.5} />
+              Print
+            </button>
+          )}
         </div>
       </div>
     </div>

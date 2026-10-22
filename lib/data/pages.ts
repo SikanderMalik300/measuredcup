@@ -925,6 +925,19 @@ export const PAGES: PageEntry[] = [
     photoId: 'scale-brown-sugar',
     inSitemap: true,
   },
+  {
+    slug: '/free-kitchen-calculators-for-your-site/',
+    title: 'Free Kitchen Calculators for Your Website | MeasuredCup',
+    metaDescription:
+      'Add a free grams to cups, butter, tablespoon or recipe scaler calculator to your blog. Copy one line of code. No ads, no tracking, no sign-up.',
+    h1: 'Free kitchen calculators for your website',
+    kind: 'hub',
+    related: [],
+    datePublished: '2026-10-22',
+    lastUpdated: '2026-10-22',
+    sources: [{ key: 'usda' }, { key: 'kingArthur' }],
+    inSitemap: true,
+  },
 
   // ---- Trust and legal ----
   {

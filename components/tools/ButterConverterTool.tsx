@@ -6,6 +6,7 @@ import { butterConvert, type ButterUnit } from '@/lib/calc/convert';
 import { parseAmount } from '@/lib/calc/fraction';
 import { formatGrams, roundTo } from '@/lib/calc/round';
 import { track } from '@/lib/analytics';
+import { useEmbed } from './embed-context';
 import { Field, TextInput } from './ui';
 
 const UNITS: { v: ButterUnit; label: string }[] = [
@@ -19,6 +20,7 @@ const UNITS: { v: ButterUnit; label: string }[] = [
 ];
 
 export function ButterConverterTool() {
+  const embed = useEmbed();
   const [amountText, setAmountText] = useState('250');
   const [from, setFrom] = useState<ButterUnit>('grams');
   const [copied, setCopied] = useState(false);
@@ -26,11 +28,12 @@ export function ButterConverterTool() {
   const amount = useMemo(() => parseAmount(amountText), [amountText]);
 
   useEffect(() => {
+    if (embed) return;
     const t = setTimeout(() => {
       if (amount != null) track('tool_used', { tool: 'butter-converter' });
     }, 150);
     return () => clearTimeout(t);
-  }, [amount, from]);
+  }, [amount, from, embed]);
 
   const inputs = (children: React.ReactNode) => (
     <div className="card p-4 shadow-panel md:p-6">
@@ -91,7 +94,7 @@ export function ButterConverterTool() {
     } catch {
       /* ignore */
     }
-    track(event, { tool: 'butter-converter' });
+    if (!embed) track(event, { tool: 'butter-converter' });
   };
   const shareUrl = () =>
     typeof window === 'undefined' ? '' : `${window.location.origin}${window.location.pathname}?${shareParams}`;
@@ -118,21 +121,25 @@ export function ButterConverterTool() {
           {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
           Copy
         </button>
-        <button type="button" className="btn-secondary" onClick={() => doCopy(shareUrl(), 'share_link')}>
-          <Share2 size={16} strokeWidth={1.5} />
-          Share
-        </button>
-        <button
-          type="button"
-          className="btn-secondary"
-          onClick={() => {
-            track('print', { tool: 'butter-converter' });
-            window.print();
-          }}
-        >
-          <Printer size={16} strokeWidth={1.5} />
-          Print
-        </button>
+        {!embed && (
+          <>
+            <button type="button" className="btn-secondary" onClick={() => doCopy(shareUrl(), 'share_link')}>
+              <Share2 size={16} strokeWidth={1.5} />
+              Share
+            </button>
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => {
+                track('print', { tool: 'butter-converter' });
+                window.print();
+              }}
+            >
+              <Printer size={16} strokeWidth={1.5} />
+              Print
+            </button>
+          </>
+        )}
       </div>
     </div>,
   );
