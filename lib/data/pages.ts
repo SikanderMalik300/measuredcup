@@ -311,7 +311,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '4 tbsp, plus grams for 23 ingredients',
-    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/tablespoons-to-grams/'],
+    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/tablespoons-in-1-2-cup/'],
     datePublished: '2026-10-16',
     lastUpdated: '2026-10-16',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
@@ -603,6 +603,48 @@ export const PAGES: PageEntry[] = [
     inSitemap: true,
   },
   {
+    slug: '/tablespoons-in-1-2-cup/',
+    title: 'How Many Tablespoons in 1/2 Cup? Plus Grams | MeasuredCup',
+    metaDescription:
+      '1/2 cup is 8 tablespoons (24 teaspoons, 4 fl oz, 118.3 mL). See what 1/2 cup of flour, sugar, butter, milk and 19 more ingredients weighs in grams.',
+    h1: 'How Many Tablespoons in 1/2 Cup?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '8 tbsp, plus grams for 23 ingredients',
+    related: ['/tablespoons-in-1-4-cup/', '/tablespoons-in-2-3-cup/', '/butter-converter/', '/cups-to-grams/'],
+    datePublished: '2026-10-23',
+    lastUpdated: '2026-10-23',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'butter-flour-eggs',
+    faq: [
+      {
+        q: 'How many tablespoons are in 1/2 cup?',
+        a: "8 tablespoons. A US cup holds 16, and half of 16 is 8. It's the same for dry and liquid ingredients.",
+      },
+      {
+        q: 'How many teaspoons are in 1/2 cup?',
+        a: '24 teaspoons. There are 3 teaspoons in each of the 8 tablespoons.',
+      },
+      {
+        q: 'Is 1/2 cup of butter one stick?',
+        a: 'Yes. A US stick of butter is 1/2 cup, 8 tablespoons or about 113 g (4 oz).',
+      },
+      {
+        q: 'How many grams is 1/2 cup of flour?',
+        a: "About 62.5 g of all-purpose flour using USDA's 125 g per cup, or 60 g using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How many grams is 1/2 cup of sugar?',
+        a: "100 g of granulated sugar using USDA's 200 g per cup. Packed brown sugar is about 110 g.",
+      },
+      {
+        q: 'Is 1/2 cup 4 ounces?',
+        a: 'For liquids, yes: 1/2 cup is 4 US fluid ounces. By weight it depends on the ingredient. 1/2 cup of flour is about 2.2 oz, while 1/2 cup of butter is about 4 oz.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
     slug: '/cups-in-a-gallon/',
     title: 'How Many Cups in a Gallon? 16, Plus a Chart | MeasuredCup',
     metaDescription:
@@ -739,7 +781,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'US, label and metric cups to mL',
-    related: ['/ml-to-cups/', '/grams-to-ml/', '/cups-in-a-quart/', '/tablespoons-to-cups/'],
+    related: ['/ml-to-cups/', '/grams-to-ml/', '/cups-in-a-quart/', '/ounces-in-a-cup/'],
     datePublished: '2026-10-21',
     lastUpdated: '2026-10-21',
     sources: [{ key: 'nist' }],
@@ -810,6 +852,48 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How many cups are in a liter?',
         a: '4.23 US cups, or 4 metric cups.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/ounces-in-a-cup/',
+    title: 'How Many Ounces in a Cup? Fluid vs Weight | MeasuredCup',
+    metaDescription:
+      'A US cup is 8 fluid ounces. By weight it depends on the food: a cup of flour is about 4.4 oz, sugar 7 oz, butter 8 oz. See all 23 ingredients.',
+    h1: 'How Many Ounces in a Cup?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '8 fl oz, plus weight ounces for 23 ingredients',
+    related: ['/cups-to-ml/', '/cups-to-grams/', '/tablespoons-in-1-2-cup/', '/cups-in-a-quart/'],
+    datePublished: '2026-10-23',
+    lastUpdated: '2026-10-23',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'four-cups',
+    faq: [
+      {
+        q: 'How many ounces are in a cup?',
+        a: '8 US fluid ounces. By weight it depends on the ingredient: about 4.4 oz for all-purpose flour, 7.1 oz for sugar and 8 oz for butter.',
+      },
+      {
+        q: 'Is a cup 8 oz dry?',
+        a: 'No. 8 oz is the volume of a cup. A cup of dry flour weighs only about 4.4 oz, and a cup of sugar about 7 oz.',
+      },
+      {
+        q: 'How many ounces is a cup of flour?',
+        a: 'About 4.41 oz (125 g) of all-purpose flour using USDA, or 4.23 oz (120 g) using King Arthur.',
+      },
+      {
+        q: 'How many ounces are in 1/2 cup?',
+        a: '4 US fluid ounces. By weight, 1/2 cup of butter is about 4 oz, which is one stick.',
+      },
+      {
+        q: 'How many fluid ounces is a metric cup?',
+        a: 'A 250 mL metric cup is about 8.45 US fluid ounces, or 8.8 UK imperial fluid ounces.',
+      },
+      {
+        q: 'How many cups is 16 ounces?',
+        a: "2 cups if it's 16 fluid ounces. If it's 16 oz by weight, it depends on the ingredient: 16 oz of flour is about 3.6 cups, while 16 oz of sugar is about 2.3 cups.",
       },
     ],
     inSitemap: true,

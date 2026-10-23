@@ -23,6 +23,10 @@ const NEXT_LINKS: Record<string, { text: string; href: string }[]> = {
     { text: 'tablespoons to cups', href: '/tablespoons-to-cups/' },
     { text: 'half a measurement', href: '/half-a-measurement/' },
   ],
+  '1/2': [
+    { text: 'tablespoons in 1/4 cup', href: '/tablespoons-in-1-4-cup/' },
+    { text: 'cups to grams', href: '/cups-to-grams/' },
+  ],
   '2/3': [
     { text: 'tablespoons in 1/3 cup', href: '/tablespoons-in-1-3-cup/' },
     { text: 'cups to grams', href: '/cups-to-grams/' },

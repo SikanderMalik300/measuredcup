@@ -21,6 +21,9 @@ import {
   cupSizesRows,
   cupsToMlRows,
   mlToCupsRows,
+  cupsToFlOzRows,
+  cupSizesInFlOz,
+  ouncesPerCupByIngredient,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -236,6 +239,95 @@ export function CupFractionEquivalentsTable({ fraction }: { fraction: number }) 
             <tr key={r.label} className={rowLine}>
               <th scope="row" className={td + ' font-normal'}>{r.label}</th>
               <td className={tdNum}>{r.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function CupsToFlOzTable() {
+  const rows = cupsToFlOzRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cups to fluid ounces (US)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Cups</th>
+            <th scope="col" className={thNum}>Fluid ounces</th>
+            <th scope="col" className={thNum}>Tablespoons</th>
+            <th scope="col" className={thNum}>mL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.cups} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.cups}</th>
+              <td className={tdNum}>{r.flOz}</td>
+              <td className={tdNum}>{r.tbsp}</td>
+              <td className={tdNum}>{r.ml}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function CupSizesInFlOzTable() {
+  const rows = cupSizesInFlOz();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cup sizes in fluid ounces</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Cup</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>US fl oz</th>
+            <th scope="col" className={thNum}>UK fl oz</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.usFlOz}</td>
+              <td className={tdNum}>{r.ukFlOz}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function OuncesPerCupTable() {
+  const rows = ouncesPerCupByIngredient();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">
+          How many ounces 1 cup weighs, by ingredient
+        </caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Ingredient</th>
+            <th scope="col" className={thNum}>Grams (USDA)</th>
+            <th scope="col" className={thNum}>Ounces (USDA)</th>
+            <th scope="col" className={thNum}>Ounces (King Arthur)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.grams}</td>
+              <td className={tdNum}>{r.usdaOz}</td>
+              <td className={tdNum}>{r.kaOz}</td>
             </tr>
           ))}
         </tbody>

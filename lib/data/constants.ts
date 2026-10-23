@@ -28,6 +28,10 @@ export const ML_PER_JAPANESE_CUP = 200;
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const ML_PER_FL_OZ = 29.5735295625;
 
+// UK imperial fluid ounce, for comparison only.
+// Source: UK imperial fluid ounce, NIST Handbook 44 Appendix C (accessed 2026-10-23).
+export const ML_PER_IMPERIAL_FL_OZ = 28.4130625;
+
 // US liquid pint, quart and gallon. Source: NIST Handbook 44 Appendix C (accessed 2026-10-16).
 export const ML_PER_PINT = 473.176473;
 export const ML_PER_QUART = 946.352946;

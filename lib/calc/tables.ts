@@ -20,6 +20,8 @@ import {
   ML_PER_LEGAL_CUP,
   ML_PER_METRIC_CUP,
   ML_PER_JAPANESE_CUP,
+  ML_PER_IMPERIAL_FL_OZ,
+  G_PER_OZ,
 } from '../data/constants';
 
 /** Format a cup amount for a reference table: kitchen fraction to the nearest 1/8 cup, or
@@ -133,11 +135,12 @@ export function spoonGramsByIngredient() {
 
 // ---- Cup fractions (pages /tablespoons-in-1-8-cup/ and /tablespoons-in-1-4-cup/) ----
 
-/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8, 1/4, 1/3 and 2/3. */
+/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8, 1/4, 1/3, 1/2 and 2/3. */
 export function cupFractionLabel(fraction: number): string {
   if (Math.abs(fraction - 1 / 8) < 1e-9) return '1/8';
   if (Math.abs(fraction - 1 / 4) < 1e-9) return '1/4';
   if (Math.abs(fraction - 1 / 3) < 1e-9) return '1/3';
+  if (Math.abs(fraction - 1 / 2) < 1e-9) return '1/2';
   if (Math.abs(fraction - 2 / 3) < 1e-9) return '2/3';
   return trimDecimal(fraction, 4);
 }
@@ -170,6 +173,10 @@ export function cupFractionEquivalents(fraction: number): { label: string; value
       value: `${fewestScoops(tsp * 2)} (${tbspTspLabel(tsp * 2)})`, // 2/3 cup (10 tbsp + 2 tsp)
     });
     rows.push({ label: 'Butter', value: '5 tbsp + 1 tsp, about 2/3 of a stick' });
+  } else if (Math.abs(fraction - 1 / 2) < 1e-9) {
+    rows.push({ label: `Half of ${label} cup`, value: '1/4 cup (4 tbsp)' });
+    rows.push({ label: `Double ${label} cup`, value: '1 cup (16 tbsp)' });
+    rows.push({ label: 'Butter', value: '8 tbsp, 1 stick' });
   } else {
     // 2/3 cup
     rows.push({
@@ -206,6 +213,49 @@ export const eighthCupEquivalents = () => cupFractionEquivalents(1 / 8);
 export const eighthCupByIngredient = () => cupFractionByIngredient(1 / 8);
 export function eighthCupGrams(id: string, source: 'usda' | 'kingArthur'): string {
   return cupFractionGrams(id, source, 1 / 8);
+}
+
+// ---- Ounces in a cup (page /ounces-in-a-cup/) ----
+
+// Cup amounts for the "Cups to fluid ounces" chart.
+const CUPS_FL_OZ_ROWS = [1 / 8, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 3 / 4, 1, 1.5, 2, 4];
+
+/** Cups to US fluid ounces, tablespoons and mL. */
+export function cupsToFlOzRows() {
+  return CUPS_FL_OZ_ROWS.map((cups) => ({
+    cups: formatFraction(cups),
+    flOz: trimDecimal(cups * 8, 2),
+    tbsp: formatFraction(cups * 16),
+    ml: roundTo(cups * ML_PER_CUP, 1).toFixed(1),
+  }));
+}
+
+// Cup sizes used around the world, with their mL definition.
+const CUP_SIZE_ROWS: { name: string; ml: number }[] = [
+  { name: 'US customary cup', ml: ML_PER_CUP },
+  { name: 'US legal cup (nutrition labels)', ml: ML_PER_LEGAL_CUP },
+  { name: 'Metric cup', ml: ML_PER_METRIC_CUP },
+  { name: 'Japanese cup', ml: ML_PER_JAPANESE_CUP },
+];
+
+/** Cup sizes in US and UK imperial fluid ounces (2 dp, trimmed). */
+export function cupSizesInFlOz() {
+  return CUP_SIZE_ROWS.map((r) => ({
+    name: r.name,
+    ml: trimDecimal(r.ml, 1),
+    usFlOz: trimDecimal(r.ml / ML_PER_FL_OZ, 2),
+    ukFlOz: trimDecimal(r.ml / ML_PER_IMPERIAL_FL_OZ, 2),
+  }));
+}
+
+/** Weight of one cup of each ingredient, in grams and ounces (oz = g / 28.349523125, 2 dp). */
+export function ouncesPerCupByIngredient() {
+  return INGREDIENTS.map((ing) => ({
+    name: ing.name,
+    grams: String(ing.usdaGramsPerCup),
+    usdaOz: roundTo(ing.usdaGramsPerCup / G_PER_OZ, 2).toFixed(2),
+    kaOz: ing.kaGramsPerCup == null ? '-' : roundTo(ing.kaGramsPerCup / G_PER_OZ, 2).toFixed(2),
+  }));
 }
 
 // ---- Grams to tablespoons (page /grams-to-tablespoons/) ----
