@@ -24,6 +24,13 @@ import {
   cupsToFlOzRows,
   cupSizesInFlOz,
   ouncesPerCupByIngredient,
+  tspToTbspRows,
+  spoonWeightRows,
+  tablespoonSizeRows,
+  litersToCupsRows,
+  cupsToLitersRows,
+  cupsPerLiterBySize,
+  literWeightRows,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -328,6 +335,201 @@ export function OuncesPerCupTable() {
               <td className={tdNum}>{r.grams}</td>
               <td className={tdNum}>{r.usdaOz}</td>
               <td className={tdNum}>{r.kaOz}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function TspToTbspChart() {
+  const rows = tspToTbspRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Teaspoons to tablespoons chart (US)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Teaspoons</th>
+            <th scope="col" className={thNum}>Tablespoons</th>
+            <th scope="col" className={thNum}>Cups</th>
+            <th scope="col" className={thNum}>mL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.tsp} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.tsp}</th>
+              <td className={tdNum}>{r.tbsp}</td>
+              <td className={tdNum}>{r.cups}</td>
+              <td className={tdNum}>{r.ml}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function SpoonWeightTable() {
+  const rows = spoonWeightRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">
+          What 1 teaspoon and 1 tablespoon weigh, by ingredient (USDA)
+        </caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Ingredient</th>
+            <th scope="col" className={thNum}>1 tsp (g)</th>
+            <th scope="col" className={thNum}>1 tbsp (g)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.tsp}</td>
+              <td className={tdNum}>{r.tbsp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function TablespoonSizesTable() {
+  const rows = tablespoonSizeRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Tablespoon sizes</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Tablespoon</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>Teaspoons (5 mL)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.tsp}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function LitersToCupsChart() {
+  const rows = litersToCupsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Liters to cups chart (US)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Liters</th>
+            <th scope="col" className={thNum}>Cups</th>
+            <th scope="col" className={thNum}>Quarts</th>
+            <th scope="col" className={thNum}>Fluid ounces</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.liters} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.liters}</th>
+              <td className={tdNum}>{r.cups}</td>
+              <td className={tdNum}>{r.quarts}</td>
+              <td className={tdNum}>{r.flOz}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function CupsToLitersChart() {
+  const rows = cupsToLitersRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cups to liters chart (US)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Cups</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>Liters</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.cups} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.cups}</th>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.liters}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function CupsPerLiterTable() {
+  const rows = cupsPerLiterBySize();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cups in a liter, by cup size</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Cup</th>
+            <th scope="col" className={thNum}>mL</th>
+            <th scope="col" className={thNum}>Cups per liter</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.ml}</td>
+              <td className={tdNum}>{r.cupsPerLiter}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function LiterWeightTable() {
+  const rows = literWeightRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">What a liter weighs (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Liquid</th>
+            <th scope="col" className={thNum}>Grams</th>
+            <th scope="col" className={thNum}>Pounds</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.grams}</td>
+              <td className={tdNum}>{r.pounds}</td>
             </tr>
           ))}
         </tbody>

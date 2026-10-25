@@ -1,6 +1,6 @@
 import { gramsToCups, cupsToGrams, spoonsToGrams, gramsToMl, densityGml } from './convert';
 import { formatGrams, gramsCell, roundTo, trimDecimal } from './round';
-import { formatFraction } from './fraction';
+import { formatFraction, parseAmount } from './fraction';
 import { fewestScoops, tbspTspLabel, toKitchenMeasure } from './kitchen';
 import { INGREDIENTS, getIngredient, gramsPerCup } from '../data/ingredients';
 import {
@@ -256,6 +256,177 @@ export function ouncesPerCupByIngredient() {
     usdaOz: roundTo(ing.usdaGramsPerCup / G_PER_OZ, 2).toFixed(2),
     kaOz: ing.kaGramsPerCup == null ? '-' : roundTo(ing.kaGramsPerCup / G_PER_OZ, 2).toFixed(2),
   }));
+}
+
+// ---- Teaspoons in a tablespoon (page /teaspoons-in-a-tablespoon/) ----
+
+function gcd(a: number, b: number): number {
+  return b === 0 ? a : gcd(b, a % b);
+}
+
+/** A cup amount that is a whole number of sixteenths, as a reduced (mixed) fraction. */
+function sixteenthsLabel(n: number): string {
+  if (n === 0) return '0';
+  const whole = Math.floor(n / 16);
+  const rem = n % 16;
+  if (rem === 0) return String(whole);
+  const g = gcd(rem, 16);
+  const frac = `${rem / g}/${16 / g}`;
+  return whole > 0 ? `${whole} ${frac}` : frac;
+}
+
+/** Cup token for the spoon tool: exact sixteenths or thirds as a fraction, else 3 dp. */
+export function cupToken(cups: number): string {
+  const sixteenths = cups * 16;
+  if (Math.abs(sixteenths - Math.round(sixteenths)) < 1e-6) return sixteenthsLabel(Math.round(sixteenths));
+  const thirds = cups * 3;
+  if (Math.abs(thirds - Math.round(thirds)) < 1e-6) return formatFraction(cups);
+  return trimDecimal(cups, 3);
+}
+
+/** formatFraction when it round-trips to an exact kitchen fraction, otherwise 3 dp. */
+export function kitchenOrDecimal(x: number): string {
+  const f = formatFraction(x);
+  const parsed = parseAmount(f);
+  if (parsed != null && Math.abs(parsed - x) < 1e-6) return f;
+  return trimDecimal(x, 3);
+}
+
+export interface TspTbspResult {
+  tbsp: number;
+  tsp: number;
+  cups: number;
+  flOz: number;
+  tspBig: string; // teaspoons, when converting from tablespoons
+  tbspBig: string; // tablespoons, when converting from teaspoons
+  amountToken: string; // the input amount as a fraction/decimal
+  cupsLabel: string;
+  cupsWord: string;
+  flOzLabel: string;
+  mlLabel: string;
+  spoonLabel: string; // tbspTspLabel(tsp)
+}
+
+export function tspTbspResult(amount: number, from: 'tablespoons' | 'teaspoons'): TspTbspResult {
+  const tbsp = from === 'tablespoons' ? amount : amount / 3;
+  const tsp = from === 'tablespoons' ? amount * 3 : amount;
+  const cups = tbsp / 16;
+  const flOz = tbsp / 2;
+  return {
+    tbsp,
+    tsp,
+    cups,
+    flOz,
+    tspBig: trimDecimal(tsp, 2),
+    tbspBig: kitchenOrDecimal(tbsp),
+    amountToken: kitchenOrDecimal(amount),
+    cupsLabel: cupToken(cups),
+    cupsWord: cups > 1 + 1e-9 ? 'cups' : 'cup',
+    flOzLabel: kitchenOrDecimal(flOz),
+    mlLabel: roundTo(tbsp * ML_PER_TBSP, 1).toFixed(1),
+    spoonLabel: tbspTspLabel(tsp),
+  };
+}
+
+// Table 1: teaspoons to tablespoons chart. cups shown only for power-of-two cup fractions.
+const TSP_CHART: { tsp: number; cups: string }[] = [
+  { tsp: 1, cups: '-' },
+  { tsp: 1.5, cups: '-' },
+  { tsp: 2, cups: '-' },
+  { tsp: 3, cups: '1/16' },
+  { tsp: 4, cups: '-' },
+  { tsp: 6, cups: '1/8' },
+  { tsp: 9, cups: '-' },
+  { tsp: 12, cups: '1/4' },
+  { tsp: 24, cups: '1/2' },
+  { tsp: 48, cups: '1' },
+];
+
+export function tspToTbspRows() {
+  return TSP_CHART.map((r) => ({
+    tsp: formatFraction(r.tsp),
+    tbsp: formatFraction(r.tsp / 3),
+    cups: r.cups,
+    ml: mlFromTsp(r.tsp),
+  }));
+}
+
+// Table 2: grams in 1 tsp and 1 tbsp for each ingredient (USDA).
+export function spoonWeightRows() {
+  return INGREDIENTS.map((ing) => ({
+    name: ing.name,
+    tsp: gramsCell(ing.usdaGramsPerCup / 48),
+    tbsp: gramsCell(ing.usdaGramsPerCup / 16),
+  }));
+}
+
+// Table 3: tablespoon sizes around the world.
+export function tablespoonSizeRows() {
+  return [
+    { name: 'US tablespoon', ml: trimDecimal(ML_PER_TBSP, 1), tsp: '3' },
+    { name: 'UK and metric tablespoon', ml: '15', tsp: '3' },
+    { name: 'Australian tablespoon', ml: '20', tsp: '4' },
+  ];
+}
+
+// ---- Cups in a liter (page /cups-in-a-liter/) ----
+
+const LITER_ROWS = [0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4];
+
+export function litersToCupsRows() {
+  return LITER_ROWS.map((L) => {
+    const ml = L * 1000;
+    return {
+      liters: formatFraction(L),
+      cups: roundTo(ml / ML_PER_CUP, 2).toFixed(2),
+      quarts: roundTo(ml / ML_PER_QUART, 2).toFixed(2),
+      flOz: roundTo(ml / ML_PER_FL_OZ, 1).toFixed(1),
+    };
+  });
+}
+
+const CUPS_LITER_ROWS = [1, 2, 3, 4, 6, 8, 10, 16];
+
+export function cupsToLitersRows() {
+  return CUPS_LITER_ROWS.map((c) => {
+    const ml = c * ML_PER_CUP;
+    return {
+      cups: String(c),
+      ml: formatMl(ml),
+      liters: trimDecimal(ml / 1000, 3),
+    };
+  });
+}
+
+// "Cups in a liter, by cup size" table.
+const LITER_CUP_SIZES: { name: string; ml: number }[] = [
+  { name: 'US customary cup', ml: ML_PER_CUP },
+  { name: 'US legal cup', ml: ML_PER_LEGAL_CUP },
+  { name: 'Metric cup', ml: ML_PER_METRIC_CUP },
+  { name: 'Japanese cup', ml: ML_PER_JAPANESE_CUP },
+];
+
+export function cupsPerLiterBySize() {
+  return LITER_CUP_SIZES.map((r) => ({
+    name: r.name,
+    ml: trimDecimal(r.ml, 1),
+    cupsPerLiter: trimDecimal(1000 / r.ml, 2),
+  }));
+}
+
+// "What a liter weighs (USDA)" table. Grams = g per cup x (1000 / ML_PER_CUP); pounds from unrounded grams.
+const LITER_WEIGHT_IDS = ['water', 'milk', 'heavy-cream', 'vegetable-oil', 'maple-syrup', 'honey'];
+
+export function literWeightRows() {
+  return LITER_WEIGHT_IDS.map((id) => {
+    const ing = getIngredient(id);
+    const grams = ing.usdaGramsPerCup * (1000 / ML_PER_CUP);
+    return {
+      name: ing.name,
+      grams: withComma(Math.round(grams)),
+      pounds: roundTo(grams / 453.59237, 2).toFixed(2),
+    };
+  });
 }
 
 // ---- Grams to tablespoons (page /grams-to-tablespoons/) ----

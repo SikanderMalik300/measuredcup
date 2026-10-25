@@ -150,7 +150,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Spoons to grams for 23 ingredients',
-    related: ['/grams-to-tablespoons/', '/tablespoons-to-cups/', '/cups-to-grams/', '/grams-to-cups/'],
+    related: ['/grams-to-tablespoons/', '/tablespoons-to-cups/', '/cups-to-grams/', '/teaspoons-in-a-tablespoon/'],
     datePublished: '2026-10-14',
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
@@ -395,7 +395,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '16 tbsp = 1 cup, with a full chart',
-    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-4-cup/', '/cups-to-ml/', '/tablespoons-to-grams/'],
+    related: ['/tablespoons-in-1-8-cup/', '/tablespoons-in-1-4-cup/', '/cups-to-ml/', '/teaspoons-in-a-tablespoon/'],
     datePublished: '2026-10-15',
     lastUpdated: '2026-10-16',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
@@ -424,6 +424,48 @@ export const PAGES: PageEntry[] = [
       {
         q: 'Is a tablespoon the same as a fluid ounce?',
         a: 'No. A tablespoon is half a fluid ounce. 2 tablespoons make 1 fluid ounce, and 16 tablespoons make 8 fluid ounces, which is 1 cup.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/teaspoons-in-a-tablespoon/',
+    title: 'Teaspoons in a Tablespoon: 3 tsp, Plus Grams | MeasuredCup',
+    metaDescription:
+      'A US tablespoon is 3 teaspoons (14.8 mL). Convert teaspoons to tablespoons both ways and see what 1 tsp and 1 tbsp of 23 baking ingredients weigh.',
+    h1: 'How Many Teaspoons in a Tablespoon?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '3 tsp, both ways, plus grams per spoon',
+    related: ['/tablespoons-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-cups/', '/tablespoons-in-1-8-cup/'],
+    datePublished: '2026-10-25',
+    lastUpdated: '2026-10-25',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'butter-flour-eggs',
+    faq: [
+      {
+        q: 'How many teaspoons are in a tablespoon?',
+        a: '3 teaspoons in a US tablespoon. The UK and metric tablespoon is also 3 teaspoons; the Australian tablespoon is 4.',
+      },
+      {
+        q: 'How many 1/2 teaspoons are in a tablespoon?',
+        a: '6. A tablespoon is 3 teaspoons, and each teaspoon is two 1/2 teaspoons.',
+      },
+      {
+        q: 'How many teaspoons are in half a tablespoon?',
+        a: '1 1/2 teaspoons.',
+      },
+      {
+        q: 'Is 1 tsp the same as 1 tbsp?',
+        a: 'No. A tablespoon is three times bigger: 14.8 mL against 4.9 mL. Recipes write tbsp or T for tablespoon, and tsp or t for teaspoon.',
+      },
+      {
+        q: 'How many tablespoons is 4 teaspoons?',
+        a: '1 1/3 tablespoons, which you can measure as 1 tablespoon plus 1 teaspoon.',
+      },
+      {
+        q: 'How many grams is a teaspoon of sugar?',
+        a: "About 4.2 g of granulated sugar using USDA's 200 g per cup. A teaspoon of table salt is about 6.1 g, and a teaspoon of all-purpose flour about 2.6 g.",
       },
     ],
     inSitemap: true,
@@ -522,7 +564,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '4 cups, plus pints, gallons and mL',
-    related: ['/cups-in-a-pint/', '/cups-in-a-gallon/', '/ml-to-cups/', '/tablespoons-to-cups/'],
+    related: ['/cups-in-a-pint/', '/cups-in-a-gallon/', '/ml-to-cups/', '/cups-in-a-liter/'],
     datePublished: '2026-10-17',
     lastUpdated: '2026-10-17',
     sources: [{ key: 'nist' }, { key: 'usda' }],
@@ -781,7 +823,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'US, label and metric cups to mL',
-    related: ['/ml-to-cups/', '/grams-to-ml/', '/cups-in-a-quart/', '/ounces-in-a-cup/'],
+    related: ['/ml-to-cups/', '/grams-to-ml/', '/cups-in-a-quart/', '/cups-in-a-liter/'],
     datePublished: '2026-10-21',
     lastUpdated: '2026-10-21',
     sources: [{ key: 'nist' }],
@@ -894,6 +936,48 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How many cups is 16 ounces?',
         a: "2 cups if it's 16 fluid ounces. If it's 16 oz by weight, it depends on the ingredient: 16 oz of flour is about 3.6 cups, while 16 oz of sugar is about 2.3 cups.",
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/cups-in-a-liter/',
+    title: 'How Many Cups in a Liter? 4.23, Plus a Chart | MeasuredCup',
+    metaDescription:
+      'A liter is about 4.23 US cups, just under 4 1/4 cups, or exactly 4 metric cups. Convert liters to cups both ways, with a chart from 1/4 to 4 liters.',
+    h1: 'How Many Cups in a Liter?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '4.23 US cups, or 4 metric cups',
+    related: ['/cups-to-ml/', '/ml-to-cups/', '/cups-in-a-quart/', '/ounces-in-a-cup/'],
+    datePublished: '2026-10-25',
+    lastUpdated: '2026-10-25',
+    sources: [{ key: 'nist' }, { key: 'usda' }],
+    photoId: 'cookbooks-counter',
+    faq: [
+      {
+        q: 'How many cups are in a liter?',
+        a: 'About 4.23 US cups. With 250 mL metric cups, a liter is exactly 4 cups.',
+      },
+      {
+        q: 'How many cups are in a liter of water?',
+        a: "The same, about 4.23 US cups. Volume doesn't depend on the liquid. A liter of water weighs about 1 kg.",
+      },
+      {
+        q: 'How many cups is 2 liters?',
+        a: 'About 8.45 US cups, so a 2 liter bottle holds a little more than 8 cups.',
+      },
+      {
+        q: 'How many cups are in half a liter?',
+        a: 'About 2.11 US cups, which is 500 mL, or exactly 2 metric cups.',
+      },
+      {
+        q: 'Is a liter bigger than a quart?',
+        a: 'Yes, slightly. A liter is 1.06 US quarts, and a quart is 0.946 liters.',
+      },
+      {
+        q: 'How many liters is 4 cups?',
+        a: 'About 0.946 liters (946 mL), which is one US quart.',
       },
     ],
     inSitemap: true,
