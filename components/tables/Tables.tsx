@@ -31,6 +31,11 @@ import {
   cupsToLitersRows,
   cupsPerLiterBySize,
   literWeightRows,
+  flOzToTbspRows,
+  tbspPerOunceRows,
+  cupsPerPoundRows,
+  poundsToCupsRows,
+  bagSizeRows,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -530,6 +535,127 @@ export function LiterWeightTable() {
               <th scope="row" className={td + ' font-normal'}>{r.name}</th>
               <td className={tdNum}>{r.grams}</td>
               <td className={tdNum}>{r.pounds}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function FlOzToTbspTable() {
+  const rows = flOzToTbspRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Fluid ounces to tablespoons (US)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Fluid ounces</th>
+            <th scope="col" className={thNum}>Tablespoons</th>
+            <th scope="col" className={thNum}>Teaspoons</th>
+            <th scope="col" className={thNum}>Cups</th>
+            <th scope="col" className={thNum}>mL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.flOz} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.flOz}</th>
+              <td className={tdNum}>{r.tbsp}</td>
+              <td className={tdNum}>{r.tsp}</td>
+              <td className={tdNum}>{r.cups}</td>
+              <td className={tdNum}>{r.ml}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+// Shared body for the identical "tbsp per ounce" and "cups per pound" tables.
+function Per16Table({ caption, rows }: { caption: string; rows: ReturnType<typeof tbspPerOunceRows> }) {
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">{caption}</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Ingredient</th>
+            <th scope="col" className={thNum}>USDA</th>
+            <th scope="col" className={thNum}>King Arthur</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.usda}</td>
+              <td className={tdNum}>{r.ka}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function TbspPerOunceTable() {
+  return <Per16Table caption="Tablespoons in 1 ounce by weight, by ingredient" rows={tbspPerOunceRows()} />;
+}
+
+export function CupsPerPoundTable() {
+  return <Per16Table caption="Cups in 1 pound, by ingredient" rows={cupsPerPoundRows()} />;
+}
+
+export function PoundsToCupsChart() {
+  const rows = poundsToCupsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Pounds to cups chart</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Pounds</th>
+            <th scope="col" className={thNum}>All-purpose flour</th>
+            <th scope="col" className={thNum}>Granulated sugar</th>
+            <th scope="col" className={thNum}>Powdered sugar</th>
+            <th scope="col" className={thNum}>Butter</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.pounds} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.pounds}</th>
+              {r.cells.map((c, i) => (
+                <td key={i} className={tdNum}>{c}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function BagSizesTable() {
+  const rows = bagSizeRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Cups in common bag sizes (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Bag</th>
+            <th scope="col" className={thNum}>Cups</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.label} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.label}</th>
+              <td className={tdNum}>{r.cups}</td>
             </tr>
           ))}
         </tbody>

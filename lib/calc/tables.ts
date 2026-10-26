@@ -22,6 +22,7 @@ import {
   ML_PER_JAPANESE_CUP,
   ML_PER_IMPERIAL_FL_OZ,
   G_PER_OZ,
+  G_PER_LB,
 } from '../data/constants';
 
 /** Format a cup amount for a reference table: kitchen fraction to the nearest 1/8 cup, or
@@ -427,6 +428,65 @@ export function literWeightRows() {
       pounds: roundTo(grams / 453.59237, 2).toFixed(2),
     };
   });
+}
+
+// ---- Tablespoons in an ounce (B1) and cups in a pound (B2) ----
+// 1 cup = 16 tbsp and 1 lb = 16 oz, so tablespoons per ounce = cups per pound = 453.59237 / g per cup.
+function per16(gramsPerCup: number): string {
+  return roundTo(G_PER_LB / gramsPerCup, 2).toFixed(2);
+}
+
+/** Tablespoons in 1 oz by weight, which equals cups in 1 lb, for each ingredient. */
+export function per16Rows() {
+  return INGREDIENTS.map((ing) => ({
+    name: ing.name,
+    usda: per16(ing.usdaGramsPerCup),
+    ka: ing.kaGramsPerCup == null ? '-' : per16(ing.kaGramsPerCup),
+  }));
+}
+export const tbspPerOunceRows = per16Rows;
+export const cupsPerPoundRows = per16Rows;
+
+// Table 1 (B1): fluid ounces to tablespoons.
+const FL_OZ_ROWS = [0.5, 1, 2, 3, 4, 6, 8, 16];
+
+export function flOzToTbspRows() {
+  return FL_OZ_ROWS.map((oz) => ({
+    flOz: formatFraction(oz),
+    tbsp: String(oz * 2),
+    tsp: String(oz * 6),
+    cups: cupToken(oz / 8),
+    ml: roundTo(oz * ML_PER_FL_OZ, 1).toFixed(1),
+  }));
+}
+
+// Table 2 (B2): pounds to cups chart for four staples (USDA).
+const POUND_CHART_ROWS = [0.25, 0.5, 1, 2, 5];
+const POUND_CHART_COLS = ['ap-flour', 'sugar', 'powdered-sugar', 'butter'];
+
+export function poundsToCupsRows() {
+  return POUND_CHART_ROWS.map((lb) => ({
+    pounds: formatFraction(lb),
+    cells: POUND_CHART_COLS.map((id) =>
+      roundTo((lb * G_PER_LB) / getIngredient(id).usdaGramsPerCup, 2).toFixed(2),
+    ),
+  }));
+}
+
+// "Cups in common bag sizes" table (USDA).
+const BAG_ROWS: { label: string; id: string; lb: number }[] = [
+  { label: '5 lb all-purpose flour', id: 'ap-flour', lb: 5 },
+  { label: '4 lb granulated sugar', id: 'sugar', lb: 4 },
+  { label: '2 lb packed brown sugar', id: 'brown-sugar', lb: 2 },
+  { label: '2 lb powdered sugar', id: 'powdered-sugar', lb: 2 },
+  { label: '1 lb butter (4 sticks)', id: 'butter', lb: 1 },
+];
+
+export function bagSizeRows() {
+  return BAG_ROWS.map((b) => ({
+    label: b.label,
+    cups: roundTo((b.lb * G_PER_LB) / getIngredient(b.id).usdaGramsPerCup, 2).toFixed(2),
+  }));
 }
 
 // ---- Grams to tablespoons (page /grams-to-tablespoons/) ----

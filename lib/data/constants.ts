@@ -56,6 +56,10 @@ export const ML_PER_IMPERIAL_PINT = 568.26125;
 // Source: NIST Handbook 44 (accessed 2026-10-14).
 export const G_PER_OZ = 28.349523125;
 
+// Avoirdupois pound = 16 ounces = 7000 grains.
+// Source: NIST Handbook 44 Appendix C (accessed 2026-10-26); 16 x 28.349523125 g = 453.59237 g.
+export const G_PER_LB = 453.59237;
+
 // One stick of US butter = 1/2 cup = 8 tbsp = 4 oz.
 // Source: US butter wrapper convention; 4 oz x 28.349523125 g = 113.398 g, rounded to 113.4 g.
 export const BUTTER_STICK_G = 113.4;

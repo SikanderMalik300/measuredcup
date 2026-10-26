@@ -60,6 +60,8 @@ export default function Page() {
                 ['tablespoons', 'scale', 'Tablespoons to grams', '/tablespoons-to-grams/'],
                 ['a tablespoon', 'teaspoons', 'Teaspoons in a tablespoon', '/teaspoons-in-a-tablespoon/'],
                 ['liters', 'cups', 'Cups in a liter', '/cups-in-a-liter/'],
+                ['ounces', 'spoons', 'Tablespoons in an ounce', '/tablespoons-in-an-ounce/'],
+                ['pounds', 'cups', 'Cups in a pound', '/cups-in-a-pound/'],
                 ['1/8 cup', 'tablespoons', 'Tablespoons in 1/8 cup', '/tablespoons-in-1-8-cup/'],
                 ['1/4 cup', 'tablespoons', 'Tablespoons in 1/4 cup', '/tablespoons-in-1-4-cup/'],
                 ['1/3 cup', 'tablespoons', 'Tablespoons in 1/3 cup', '/tablespoons-in-1-3-cup/'],

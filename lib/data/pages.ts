@@ -108,7 +108,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Fractions welcome: 2/3 cup, 1 1/2 cups',
-    related: ['/grams-to-cups/', '/cups-to-ml/', '/tablespoons-in-2-3-cup/', '/data/ingredient-weights/'],
+    related: ['/grams-to-cups/', '/cups-to-ml/', '/tablespoons-in-2-3-cup/', '/cups-in-a-pound/'],
     datePublished: '2026-10-14',
     lastUpdated: LAST_UPDATED,
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
@@ -192,7 +192,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Sticks, cups, tablespoons, grams, ounces',
-    related: ['/cups-to-grams/', '/tablespoons-to-grams/', '/half-a-measurement/', '/recipe-scaler/'],
+    related: ['/cups-to-grams/', '/tablespoons-to-grams/', '/half-a-measurement/', '/cups-in-a-pound/'],
     datePublished: '2026-10-14',
     lastUpdated: LAST_UPDATED,
     sources: [
@@ -437,7 +437,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '3 tsp, both ways, plus grams per spoon',
-    related: ['/tablespoons-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-cups/', '/tablespoons-in-1-8-cup/'],
+    related: ['/tablespoons-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-cups/', '/tablespoons-in-an-ounce/'],
     datePublished: '2026-10-25',
     lastUpdated: '2026-10-25',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
@@ -466,6 +466,48 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How many grams is a teaspoon of sugar?',
         a: "About 4.2 g of granulated sugar using USDA's 200 g per cup. A teaspoon of table salt is about 6.1 g, and a teaspoon of all-purpose flour about 2.6 g.",
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/tablespoons-in-an-ounce/',
+    title: 'Tablespoons in an Ounce: Fluid and Dry Ounces | MeasuredCup',
+    metaDescription:
+      '1 fluid ounce is 2 tablespoons. By weight it depends on the food: 1 oz of flour is about 3.6 tbsp, sugar 2.3 tbsp, butter 2 tbsp. See 23 ingredients.',
+    h1: 'How Many Tablespoons in an Ounce?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '2 tbsp per fl oz, plus dry ounces',
+    related: ['/ounces-in-a-cup/', '/teaspoons-in-a-tablespoon/', '/tablespoons-to-grams/', '/cups-in-a-pound/'],
+    datePublished: '2026-10-26',
+    lastUpdated: '2026-10-26',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'butter-flour-eggs',
+    faq: [
+      {
+        q: 'How many tablespoons are in an ounce?',
+        a: '2 tablespoons in a US fluid ounce. For dry ingredients by weight, it depends on the food: about 3.6 for flour and 2.3 for sugar.',
+      },
+      {
+        q: 'How many tablespoons are in an ounce dry?',
+        a: "It depends on the ingredient's weight. 1 oz of all-purpose flour is about 3.6 tablespoons, cocoa about 5.3 and granulated sugar about 2.3.",
+      },
+      {
+        q: 'How many tablespoons is 1 oz of butter?',
+        a: '2 tablespoons. A 4 oz US stick has 8 tablespoon marks.',
+      },
+      {
+        q: 'How many tablespoons are in 2 ounces?',
+        a: '4 tablespoons for 2 fluid ounces, which is 1/4 cup.',
+      },
+      {
+        q: 'How many teaspoons are in an ounce?',
+        a: '6 teaspoons in a US fluid ounce.',
+      },
+      {
+        q: 'Is 1 oz the same as 2 tablespoons?',
+        a: 'For liquids, yes: 1 fl oz is 2 tablespoons. By weight, only for water-like foods and butter.',
       },
     ],
     inSitemap: true,
@@ -907,7 +949,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '8 fl oz, plus weight ounces for 23 ingredients',
-    related: ['/cups-to-ml/', '/cups-to-grams/', '/tablespoons-in-1-2-cup/', '/cups-in-a-quart/'],
+    related: ['/cups-to-ml/', '/cups-to-grams/', '/tablespoons-in-1-2-cup/', '/tablespoons-in-an-ounce/'],
     datePublished: '2026-10-23',
     lastUpdated: '2026-10-23',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
@@ -978,6 +1020,48 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How many liters is 4 cups?',
         a: 'About 0.946 liters (946 mL), which is one US quart.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/cups-in-a-pound/',
+    title: 'How Many Cups in a Pound? By Ingredient | MeasuredCup',
+    metaDescription:
+      'A pound of flour is about 3.6 cups, sugar 2.3 cups, powdered sugar 3.8 cups and butter 2 cups (4 sticks). Convert pounds to cups for 23 ingredients.',
+    h1: 'How Many Cups in a Pound?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: 'Pounds to cups for 23 ingredients',
+    related: ['/cups-to-grams/', '/grams-to-cups/', '/butter-converter/', '/tablespoons-in-an-ounce/'],
+    datePublished: '2026-10-26',
+    lastUpdated: '2026-10-26',
+    sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
+    photoId: 'four-cups',
+    faq: [
+      {
+        q: 'How many cups are in a pound?',
+        a: 'It depends on the ingredient: about 3.6 cups of flour, 2.3 cups of sugar, 3.8 cups of powdered sugar, or 2 cups of butter.',
+      },
+      {
+        q: 'How many cups are in a pound of powdered sugar?',
+        a: "About 3.78 cups (3 3/4) of unsifted powdered sugar using USDA's 120 g per cup. King Arthur's figure gives about 4 cups.",
+      },
+      {
+        q: 'How many cups are in a pound of flour?',
+        a: "About 3.63 cups of all-purpose flour using USDA, or 3.78 using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How many cups are in a pound of sugar?',
+        a: 'About 2.27 cups of granulated sugar, or about 2 1/4 cups.',
+      },
+      {
+        q: 'How many cups is a pound of butter?',
+        a: "2 cups. That's 4 US sticks or 32 tablespoons.",
+      },
+      {
+        q: 'How many cups are in a 5 lb bag of flour?',
+        a: "About 18 cups of all-purpose flour, using USDA's 125 g per cup.",
       },
     ],
     inSitemap: true,
