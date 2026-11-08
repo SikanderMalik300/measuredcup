@@ -220,6 +220,16 @@ export function tbspTspLabel(totalTsp: number): string {
   return parts.length ? parts.join(' + ') : '0';
 }
 
+/**
+ * Kitchen measure for the half/third/double tool. Same as toKitchenMeasure, except exactly 1/16 tsp
+ * (half of a 1/8 tsp) is named explicitly instead of collapsing to "a pinch".
+ */
+export function halfMeasure(resultCups: number): string {
+  const tsp = resultCups * TSP_PER_CUP;
+  if (Math.abs(tsp - 1 / 16) < 1e-6) return '1/16 tsp (fill a 1/8 tsp halfway)';
+  return toKitchenMeasure(resultCups);
+}
+
 function formatScoops(wholeCups: number, opt: ScoopOption): string {
   const parts: string[] = [];
   const fracLabel = opt.frac?.label;

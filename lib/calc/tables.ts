@@ -136,13 +136,14 @@ export function spoonGramsByIngredient() {
 
 // ---- Cup fractions (pages /tablespoons-in-1-8-cup/ and /tablespoons-in-1-4-cup/) ----
 
-/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8, 1/4, 1/3, 1/2 and 2/3. */
+/** Label for a cup fraction, e.g. 1/8 -> "1/8". Supports 1/8, 1/4, 1/3, 1/2, 2/3 and 3/4. */
 export function cupFractionLabel(fraction: number): string {
   if (Math.abs(fraction - 1 / 8) < 1e-9) return '1/8';
   if (Math.abs(fraction - 1 / 4) < 1e-9) return '1/4';
   if (Math.abs(fraction - 1 / 3) < 1e-9) return '1/3';
   if (Math.abs(fraction - 1 / 2) < 1e-9) return '1/2';
   if (Math.abs(fraction - 2 / 3) < 1e-9) return '2/3';
+  if (Math.abs(fraction - 3 / 4) < 1e-9) return '3/4';
   return trimDecimal(fraction, 4);
 }
 
@@ -178,6 +179,10 @@ export function cupFractionEquivalents(fraction: number): { label: string; value
     rows.push({ label: `Half of ${label} cup`, value: '1/4 cup (4 tbsp)' });
     rows.push({ label: `Double ${label} cup`, value: '1 cup (16 tbsp)' });
     rows.push({ label: 'Butter', value: '8 tbsp, 1 stick' });
+  } else if (Math.abs(fraction - 3 / 4) < 1e-9) {
+    rows.push({ label: `Half of ${label} cup`, value: '1/4 cup + 2 tbsp (6 tbsp)' });
+    rows.push({ label: `Double ${label} cup`, value: '1 1/2 cups' });
+    rows.push({ label: 'Butter', value: '12 tbsp, 1 1/2 sticks' });
   } else {
     // 2/3 cup
     rows.push({
@@ -430,6 +435,47 @@ export function literWeightRows() {
   });
 }
 
+// ---- Grams to teaspoons (page /grams-to-teaspoons/) ----
+
+export const G2TSP_ROWS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 50];
+export const G2TSP_COLS = ['ap-flour', 'sugar', 'butter', 'honey', 'cocoa', 'salt'];
+
+/** Teaspoons for grams of an ingredient: grams ÷ (grams per cup ÷ 48). */
+export function gramsToTsp(grams: number, id: string, source: 'usda' | 'kingArthur'): number {
+  return grams / (gramsPerCup(getIngredient(id), source) / 48);
+}
+
+export function gramsToTeaspoonsRows() {
+  return G2TSP_ROWS.map((grams) => ({
+    grams,
+    cells: G2TSP_COLS.map((id) => trimDecimal(gramsToTsp(grams, id, 'usda'), 2)),
+  }));
+}
+
+const TSP2G_ROWS: { label: string; tsp: number }[] = [
+  { label: '1/4', tsp: 0.25 },
+  { label: '1/2', tsp: 0.5 },
+  { label: '1', tsp: 1 },
+  { label: '2', tsp: 2 },
+  { label: '3 (1 tbsp)', tsp: 3 },
+];
+
+export function teaspoonsToGramsRows() {
+  return TSP2G_ROWS.map((r) => ({
+    tsp: r.label,
+    cells: G2TSP_COLS.map((id) => gramsCell((r.tsp * getIngredient(id).usdaGramsPerCup) / 48)),
+  }));
+}
+
+/** Grams in 1 teaspoon for each ingredient, USDA and King Arthur. */
+export function gramsPerTspRows() {
+  return INGREDIENTS.map((ing) => ({
+    name: ing.name,
+    usda: gramsCell(ing.usdaGramsPerCup / 48),
+    ka: ing.kaGramsPerCup == null ? '-' : gramsCell(ing.kaGramsPerCup / 48),
+  }));
+}
+
 // ---- Tablespoons in an ounce (B1) and cups in a pound (B2) ----
 // 1 cup = 16 tbsp and 1 lb = 16 oz, so tablespoons per ounce = cups per pound = 453.59237 / g per cup.
 function per16(gramsPerCup: number): string {
@@ -491,7 +537,7 @@ export function bagSizeRows() {
 
 // ---- Grams to tablespoons (page /grams-to-tablespoons/) ----
 
-export const G2TBSP_ROWS = [5, 10, 15, 20, 25, 30, 50, 100];
+export const G2TBSP_ROWS = [2, 5, 7, 10, 12, 15, 20, 25, 30, 40, 50, 100];
 export const G2TBSP_COLS = ['ap-flour', 'sugar', 'butter', 'honey', 'cocoa'];
 
 /** Tablespoons for grams of an ingredient: grams ÷ (grams per cup ÷ 16). */
@@ -779,6 +825,8 @@ export interface HalfThirdRow {
   third: string;
 }
 export const HALF_THIRD_ROWS: HalfThirdRow[] = [
+  // 1 1/2 cups is the largest amount, so it leads the largest-to-smallest table.
+  { amount: '1 1/2 cups', half: '3/4 cup', third: '1/2 cup' },
   { amount: '1 cup', half: '1/2 cup', third: '1/3 cup' },
   { amount: '3/4 cup', half: '1/4 cup + 2 tbsp', third: '1/4 cup' },
   { amount: '2/3 cup', half: '1/3 cup', third: 'about 3 tbsp + 1 1/2 tsp' },
@@ -786,8 +834,11 @@ export const HALF_THIRD_ROWS: HalfThirdRow[] = [
   { amount: '1/3 cup', half: '2 tbsp + 2 tsp', third: 'about 1 tbsp + 2 1/4 tsp' },
   { amount: '1/4 cup', half: '2 tbsp', third: '1 tbsp + 1 tsp' },
   { amount: '1 tbsp', half: '1 1/2 tsp', third: '1 tsp' },
+  { amount: '1 1/2 tsp', half: '3/4 tsp', third: '1/2 tsp' },
   { amount: '1 tsp', half: '1/2 tsp', third: 'about 1/4 tsp + a pinch' },
   { amount: '1/2 tsp', half: '1/4 tsp', third: 'about 1/8 tsp + a pinch' },
+  { amount: '1/4 tsp', half: '1/8 tsp', third: 'about 2/3 of a 1/8 tsp' },
+  { amount: '1/8 tsp', half: '1/16 tsp (half a 1/8 tsp)', third: 'about 1/3 of a 1/8 tsp' },
 ];
 
 /** The CSV content for the data download, generated from the dataset. */

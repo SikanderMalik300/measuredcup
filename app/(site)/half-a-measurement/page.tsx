@@ -25,7 +25,8 @@ export default function Page() {
       <QuickAnswer>
         Half of 3/4 cup is 1/4 cup plus 2 tablespoons (6 tablespoons). Half of 1/3 cup is 2
         tablespoons plus 2 teaspoons, and half of 1/4 cup is 2 tablespoons. Type any amount below to
-        halve it, cut it to a third, or double it.
+        halve it, cut it to a third, or double it. Half of 1 teaspoon is 1/2 teaspoon, and half of
+        1/2 teaspoon is 1/4 teaspoon.
       </QuickAnswer>
 
       <div className="mt-6">

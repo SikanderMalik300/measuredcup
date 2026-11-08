@@ -230,14 +230,14 @@ export const PAGES: PageEntry[] = [
     slug: '/half-a-measurement/',
     title: 'Half a Measurement Calculator (Cups & Spoons) | MeasuredCup',
     metaDescription:
-      'Half of 3/4 cup is 1/4 cup plus 2 tablespoons. Halve, third or double any cup, tablespoon or teaspoon amount and get measuring-spoon combinations.',
+      'Half of 3/4 cup is 1/4 cup plus 2 tbsp, and half of 1 tsp is 1/2 tsp. Halve, third or double any cup, tablespoon or teaspoon amount with spoon combinations.',
     h1: 'Half of a Measurement Calculator',
     kind: 'tool',
     category: 'recipe-tools',
     tileLine: 'Halve, third or double a single amount',
     related: ['/recipe-scaler/', '/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/tablespoons-to-grams/'],
     datePublished: '2026-10-14',
-    lastUpdated: LAST_UPDATED,
+    lastUpdated: '2026-11-09',
     sources: [
       { key: 'nist', note: 'cup = 16 tbsp = 48 tsp' },
       { key: 'usda', note: 'large egg 50 g' },
@@ -256,6 +256,20 @@ export const PAGES: PageEntry[] = [
         q: 'How do I halve one egg?',
         a: 'Beat one large egg, then use half by weight, about 25 g, which is a little over 1 1/2 tablespoons.',
       },
+      {
+        q: 'What is half of 1 teaspoon?',
+        a: '1/2 teaspoon. A third of 1 teaspoon is a little over 1/4 teaspoon.',
+      },
+      { q: 'What is half of 1/2 teaspoon?', a: '1/4 teaspoon.' },
+      {
+        q: 'What is half of 1/8 teaspoon?',
+        a: '1/16 teaspoon. Fill a 1/8 teaspoon about halfway and level it by eye.',
+      },
+      {
+        q: 'How much is half a cup?',
+        a: '8 tablespoons, which is 4 US fluid ounces or 118.3 mL.',
+      },
+      { q: 'What is half of 1 1/2 cups?', a: '3/4 cup, which is 12 tablespoons.' },
     ],
     inSitemap: true,
   },
@@ -353,9 +367,9 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: 'Grams to spoons for 23 ingredients',
-    related: ['/grams-to-ml/', '/tablespoons-to-grams/', '/grams-to-cups/', '/tablespoons-to-cups/'],
+    related: ['/grams-to-ml/', '/tablespoons-to-grams/', '/grams-to-cups/', '/grams-to-teaspoons/'],
     datePublished: '2026-10-16',
-    lastUpdated: '2026-10-16',
+    lastUpdated: '2026-11-09',
     sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
     photoId: 'scale-flour',
     faq: [
@@ -382,6 +396,56 @@ export const PAGES: PageEntry[] = [
       {
         q: 'How do I convert grams to teaspoons?',
         a: "Divide grams by the grams in one teaspoon, which is the grams per cup ÷ 48. For sugar that's 4.2 g per teaspoon, so 10 g is 2.4 teaspoons.",
+      },
+      {
+        q: 'How many tablespoons is 15 grams?',
+        a: 'It depends on the ingredient: about 1.9 tablespoons of all-purpose flour, 1.2 of sugar or 1.1 of butter (USDA). Only water-like liquids are close to 1 tablespoon.',
+      },
+      {
+        q: 'How many tablespoons is 48 grams of sugar?',
+        a: "About 3.84 tablespoons of granulated sugar, just under 1/4 cup, using USDA's 12.5 g per tablespoon.",
+      },
+    ],
+    inSitemap: true,
+  },
+  {
+    slug: '/grams-to-teaspoons/',
+    title: 'Grams to Teaspoons Converter by Ingredient | MeasuredCup',
+    metaDescription:
+      'Convert grams to teaspoons and back for 23 ingredients. 5 g of sugar is 1.2 tsp, 5 g of flour 1.9 tsp and 5 g of salt 0.8 tsp, using USDA and King Arthur data.',
+    h1: 'Grams to Teaspoons Converter',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: 'Grams to teaspoons and back, 23 ingredients',
+    related: ['/grams-to-tablespoons/', '/teaspoons-in-a-tablespoon/', '/tablespoons-to-grams/', '/grams-to-cups/'],
+    datePublished: '2026-11-09',
+    lastUpdated: '2026-11-09',
+    sources: [{ key: 'usda' }, { key: 'kingArthur' }, { key: 'nist' }],
+    photoId: 'scale-flour',
+    faq: [
+      {
+        q: 'How many grams are in a teaspoon?',
+        a: 'It depends on the ingredient: about 4.9 g of water, 4.2 g of sugar, 2.6 g of flour and 6.1 g of table salt (USDA FoodData Central).',
+      },
+      {
+        q: 'How many teaspoons is 5 grams?',
+        a: 'About 1.2 teaspoons of sugar, 1.9 of all-purpose flour, 0.8 of table salt, or 1 for water.',
+      },
+      {
+        q: 'How many teaspoons is 10 grams of sugar?',
+        a: "2.4 teaspoons, using USDA's 4.17 g per teaspoon.",
+      },
+      {
+        q: 'Is 1 teaspoon 5 grams?',
+        a: 'Only for water-like liquids, at about 4.9 g. Sugar is about 4.2 g and flour about 2.6 g.',
+      },
+      {
+        q: 'How many grams is 1 teaspoon of salt?',
+        a: 'About 6.1 g of table salt using USDA, or 6 g using King Arthur.',
+      },
+      {
+        q: 'How do I convert teaspoons to grams?',
+        a: 'Multiply the teaspoons by the grams in one teaspoon of that ingredient. For sugar, 2 teaspoons × 4.17 g = 8.3 g.',
       },
     ],
     inSitemap: true,
@@ -437,7 +501,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '3 tsp, both ways, plus grams per spoon',
-    related: ['/tablespoons-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-cups/', '/tablespoons-in-an-ounce/'],
+    related: ['/tablespoons-to-grams/', '/grams-to-tablespoons/', '/tablespoons-to-cups/', '/grams-to-teaspoons/'],
     datePublished: '2026-10-25',
     lastUpdated: '2026-10-25',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
@@ -653,7 +717,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '10 tbsp + 2 tsp, plus grams',
-    related: ['/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/half-a-measurement/', '/cups-to-grams/'],
+    related: ['/tablespoons-in-1-3-cup/', '/tablespoons-to-cups/', '/half-a-measurement/', '/tablespoons-in-3-4-cup/'],
     datePublished: '2026-10-18',
     lastUpdated: '2026-10-18',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
@@ -687,6 +751,48 @@ export const PAGES: PageEntry[] = [
     inSitemap: true,
   },
   {
+    slug: '/tablespoons-in-3-4-cup/',
+    title: 'How Many Tablespoons in 3/4 Cup? Plus Grams | MeasuredCup',
+    metaDescription:
+      '3/4 cup is 12 tablespoons (36 teaspoons, 6 fl oz, 177.4 mL). See what 3/4 cup of flour, sugar, butter, milk and 19 more ingredients weighs in grams.',
+    h1: 'How Many Tablespoons in 3/4 Cup?',
+    kind: 'tool',
+    category: 'converters',
+    tileLine: '12 tbsp, plus grams for 23 ingredients',
+    related: ['/tablespoons-in-2-3-cup/', '/tablespoons-in-1-2-cup/', '/half-a-measurement/', '/cups-to-grams/'],
+    datePublished: '2026-11-09',
+    lastUpdated: '2026-11-09',
+    sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],
+    photoId: 'four-cups',
+    faq: [
+      {
+        q: 'How many tablespoons are in 3/4 cup?',
+        a: '12 tablespoons, which is 36 teaspoons or 6 US fluid ounces.',
+      },
+      {
+        q: 'How many tablespoons of butter is 3/4 cup?',
+        a: '12 tablespoons, or 1 1/2 US sticks. By weight that\'s about 170 g.',
+      },
+      {
+        q: 'How many 1/4 cups make 3/4 cup?',
+        a: 'Three level 1/4 cups.',
+      },
+      {
+        q: 'How many grams is 3/4 cup of flour?',
+        a: "About 93.8 g of all-purpose flour using USDA's 125 g per cup, or 90 g using King Arthur's 120 g per cup.",
+      },
+      {
+        q: 'How many grams is 3/4 cup of sugar?',
+        a: "About 150 g of granulated sugar using USDA's 200 g per cup. Packed brown sugar is about 165 g.",
+      },
+      {
+        q: 'What is half of 3/4 cup?',
+        a: '1/4 cup plus 2 tablespoons, which is 6 tablespoons.',
+      },
+    ],
+    inSitemap: true,
+  },
+  {
     slug: '/tablespoons-in-1-2-cup/',
     title: 'How Many Tablespoons in 1/2 Cup? Plus Grams | MeasuredCup',
     metaDescription:
@@ -695,7 +801,7 @@ export const PAGES: PageEntry[] = [
     kind: 'tool',
     category: 'converters',
     tileLine: '8 tbsp, plus grams for 23 ingredients',
-    related: ['/tablespoons-in-1-4-cup/', '/tablespoons-in-2-3-cup/', '/butter-converter/', '/cups-to-grams/'],
+    related: ['/tablespoons-in-1-4-cup/', '/tablespoons-in-2-3-cup/', '/butter-converter/', '/tablespoons-in-3-4-cup/'],
     datePublished: '2026-10-23',
     lastUpdated: '2026-10-23',
     sources: [{ key: 'nist' }, { key: 'usda' }, { key: 'kingArthur' }],

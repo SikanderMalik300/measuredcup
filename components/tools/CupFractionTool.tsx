@@ -31,6 +31,10 @@ const NEXT_LINKS: Record<string, { text: string; href: string }[]> = {
     { text: 'tablespoons in 1/3 cup', href: '/tablespoons-in-1-3-cup/' },
     { text: 'cups to grams', href: '/cups-to-grams/' },
   ],
+  '3/4': [
+    { text: 'tablespoons in 2/3 cup', href: '/tablespoons-in-2-3-cup/' },
+    { text: 'cups to grams', href: '/cups-to-grams/' },
+  ],
 };
 
 /** Grams in a cup fraction (1/8, 1/4, 1/3 or 2/3) by ingredient, with equivalents. */

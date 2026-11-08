@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { parseAmount } from '@/lib/calc/fraction';
-import { toKitchenMeasure } from '@/lib/calc/kitchen';
+import { halfMeasure } from '@/lib/calc/kitchen';
 import { roundTo } from '@/lib/calc/round';
 import { ML_PER_CUP } from '@/lib/data/constants';
 import { track } from '@/lib/analytics';
@@ -90,7 +90,7 @@ export function HalfMeasurementTool() {
   }
 
   const resultCups = amount * TO_CUPS[unit] * factor;
-  const primary = toKitchenMeasure(resultCups);
+  const primary = halfMeasure(resultCups);
   const totalTbsp = roundTo(resultCups * 16, 2);
   const ml = roundTo(resultCups * ML_PER_CUP, 1);
   const secondary = `= ${trimNum(totalTbsp)} tbsp = ${ml} mL`;

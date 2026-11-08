@@ -67,9 +67,10 @@ describe('static reference tables match the spec', () => {
     expect(BUTTER_ROWS[4]).toMatchObject({ amount: '1/2 cup', grams: '113' });
     expect(BUTTER_ROWS[8]).toMatchObject({ amount: '1 pound', grams: '454' });
   });
-  it('halves and thirds table has 9 rows', () => {
-    expect(HALF_THIRD_ROWS).toHaveLength(9);
-    expect(HALF_THIRD_ROWS[1]).toMatchObject({ amount: '3/4 cup', half: '1/4 cup + 2 tbsp' });
+  it('halves and thirds table runs largest to smallest', () => {
+    expect(HALF_THIRD_ROWS).toHaveLength(13);
+    expect(HALF_THIRD_ROWS[0]).toMatchObject({ amount: '1 1/2 cups', half: '3/4 cup' });
+    expect(HALF_THIRD_ROWS[2]).toMatchObject({ amount: '3/4 cup', half: '1/4 cup + 2 tbsp' });
   });
 });
 

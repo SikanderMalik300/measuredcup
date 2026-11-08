@@ -36,6 +36,10 @@ import {
   cupsPerPoundRows,
   poundsToCupsRows,
   bagSizeRows,
+  gramsToTeaspoonsRows,
+  teaspoonsToGramsRows,
+  gramsPerTspRows,
+  G2TSP_COLS,
   SPOON_GRAM_COLS,
   G2TBSP_COLS,
   BUTTER_ROWS,
@@ -656,6 +660,91 @@ export function BagSizesTable() {
             <tr key={r.label} className={rowLine}>
               <th scope="row" className={td + ' font-normal'}>{r.label}</th>
               <td className={tdNum}>{r.cups}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function GramsToTeaspoonsChart() {
+  const rows = gramsToTeaspoonsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Grams to teaspoons (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Grams</th>
+            {G2TSP_COLS.map((id) => (
+              <th scope="col" key={id} className={thNum}>{colName(id)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.grams} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.grams} g</th>
+              {r.cells.map((c, i) => (
+                <td key={i} className={tdNum}>{c}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function TeaspoonsToGramsChart() {
+  const rows = teaspoonsToGramsRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Teaspoons to grams (USDA)</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Teaspoons</th>
+            {G2TSP_COLS.map((id) => (
+              <th scope="col" key={id} className={thNum}>{colName(id)}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.tsp} className={rowLine}>
+              <th scope="row" className={td + ' font-normal tabular'}>{r.tsp}</th>
+              {r.cells.map((c, i) => (
+                <td key={i} className={tdNum}>{c}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </TableWrap>
+  );
+}
+
+export function GramsPerTeaspoonTable() {
+  const rows = gramsPerTspRows();
+  return (
+    <TableWrap>
+      <table className="w-full border-collapse">
+        <caption className="pb-2 text-left text-small text-muted">Grams in 1 teaspoon, by ingredient</caption>
+        <thead>
+          <tr className={rowLine}>
+            <th scope="col" className={th}>Ingredient</th>
+            <th scope="col" className={thNum}>USDA</th>
+            <th scope="col" className={thNum}>King Arthur</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.name} className={rowLine}>
+              <th scope="row" className={td + ' font-normal'}>{r.name}</th>
+              <td className={tdNum}>{r.usda}</td>
+              <td className={tdNum}>{r.ka}</td>
             </tr>
           ))}
         </tbody>
